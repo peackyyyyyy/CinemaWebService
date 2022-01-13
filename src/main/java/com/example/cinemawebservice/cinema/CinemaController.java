@@ -9,7 +9,7 @@ import java.util.*;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "cinemas")
 public class CinemaController {
     private final CinemaService cinemaService;
@@ -29,6 +29,7 @@ public class CinemaController {
     @GetMapping()
     public List<Cinema> fetchCinemaWithParams(@RequestParam(required = false) List<String> city,
                                           @RequestParam(required = false) List<String> film){
+        System.out.println("request");
         return cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(film));
     }
 

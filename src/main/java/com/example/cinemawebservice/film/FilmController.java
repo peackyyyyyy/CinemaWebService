@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "films")
 public class FilmController {
     private final FilmService filmService;

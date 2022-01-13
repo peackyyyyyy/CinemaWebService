@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+  <title>Profil</title>
+  <meta http-equiv="content.type" content="text/html"; charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/htmlincludejs"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="index.html">Moncine</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="films.html">Films</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">À propos</a>
+      </li>
+    </ul>
+    <a class="btn btn-success me-auto pull-right m-2" href="" role="button">Inscription</a>
+    <a class="btn btn-outline-secondary me-auto pull-right m-2" href="connexion.html" role="button">Connexion</a>
+  </div>
+</nav>
+<body>
+  <h1 class="display-3 text-center text-info">Films</h1>
+  <div>
+    <table id="tab" class="table table-hover">
+      <tbody id="my-list">
+      <tr>
+        <th scope="col" >Title</th>
+        <th scope="col" >Language</th>
+        <th scope="col" >Description</th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+
+<script>
+
+
+
+  setInterval(load_films(), 5000);
+
+  function load_films() {
+    const url = 'http://localhost:8080/films';
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data)
+              renderList(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
+
+
+  function renderList(data) {
+    var list = "";
+    $.each(data, function (index) {
+      list += "<tr>";
+      list += "<td><a href='http://localhost:8080/films?id=\'" + data[index].id +">" + data[index].title + "</a></td>";
+      list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
+      list += "<td> duration :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
+      list += "</tr>";
+    })
+    $("#my-list").append(list);
+  }
+
+</script>
+
+</html>
