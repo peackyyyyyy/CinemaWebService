@@ -11,8 +11,8 @@ import java.util.List;
 @Document
 public class Seance {
     @Id
-    private String day;
-    private String hour;
+    private final String day;
+    private final String hour;
 
     public Seance(String day, String hour) {
         this.day = day;
@@ -27,6 +27,13 @@ public class Seance {
         return hour;
     }
 
+    @Override
+    public String toString() {
+        return "Seance{" +
+                "day='" + day +
+                ", hour='" + hour +
+                '}';
+    }
 }
 
 
