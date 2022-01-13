@@ -52,14 +52,11 @@ public class CinemaService {
         else if (city.isEmpty() && film.isEmpty()){
             return cinemaRepository.findAll();
         }
-        else if (film.isPresent() && city.isEmpty()){
+        else if (city.isEmpty()){
             return cinemaRepository.findCinemaByMovies(film.get());
         }
-        else if (city.isPresent() && film.isPresent()){
-            return cinemaRepository.findCinemaByMoviesandfindCinemaByCities(film.get(), city.get());
-        }
         else {
-            return null;
+            return cinemaRepository.findCinemaByMoviesandfindCinemaByCities(film.get(), city.get());
         }
     }
 

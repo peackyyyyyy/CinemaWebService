@@ -15,14 +15,8 @@ public class FilmController {
     private final FilmService filmService;
 
     @GetMapping()
-    public List<Film> fetchAllFilms(){
-        return filmService.get_all_films();
-    }
-
-    @RequestMapping(path = "/title={title}")
-    @GetMapping()
-    public Film fetchFilmbyTitle(@PathVariable(value="title") String title){
-        return filmService.get_film_by_title(title);
+    public List<Film> fetchAllFilms(@RequestParam(required = false) List<String> title){
+        return filmService.get_films_with_params(Optional.ofNullable(title));
     }
 
 

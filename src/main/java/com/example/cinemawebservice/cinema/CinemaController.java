@@ -1,7 +1,6 @@
 package com.example.cinemawebservice.cinema;
 
 import business.Cinema;
-import business.Film;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,18 +27,16 @@ public class CinemaController {
 
     @RequestMapping()
     @GetMapping()
-    public List<Cinema> fetchCinemaByCity(@RequestParam(required = false) List<String> city,
+    public List<Cinema> fetchCinemaWithParams(@RequestParam(required = false) List<String> city,
                                           @RequestParam(required = false) List<String> film){
-        System.out.println(city);
-        System.out.println(film);
         return cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(film));
     }
 
 
-    @RequestMapping(path = "/movie={movie}")
+    @RequestMapping(path = "/id={id}")
     @GetMapping()
-    public List<Cinema> fetchCinemaByFilm(@PathVariable(value="movie") String movie){
-        return cinemaService.get_cinemas_by_movie(movie);
+    public Optional<Cinema> fetchCinemaByFilm(@PathVariable(value="id") String id){
+        return cinemaService.get_cinema_by_id(id);
     }
 }
 

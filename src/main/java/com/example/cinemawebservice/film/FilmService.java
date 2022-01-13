@@ -16,8 +16,11 @@ public class FilmService {
     private final FilmRepository filmRepository;
 
     @GetMapping
-    public List<Film> get_all_films(){
-        return filmRepository.findAll();
+    public List<Film> get_films_with_params(Optional<List<String>> title){
+        if (title.isPresent()) {
+            return filmRepository.findFilmByTitle(title.get());
+        }
+        else return filmRepository.findAll();
     }
 
     @GetMapping
@@ -25,9 +28,5 @@ public class FilmService {
         return filmRepository.findById(id);
     }
 
-    @GetMapping
-    public Film get_film_by_title(String title){
-        return filmRepository.findFilmByTitle(title);
-    }
 
 }
