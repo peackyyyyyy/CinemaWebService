@@ -11,20 +11,24 @@ import java.util.List;
 public class Cinema {
     @Id
     private final String id;
-    private final String city;
-    private final String address;
+    //private final String city;
+    private final String name;
+    private final Address address;
     private final List<Film> film;
 
     public String getId() {
         return id;
     }
 
+    //public String getCity() {
+      //  return city;
+    //}
 
-    public String getCity() {
-        return city;
+    public String getName(){
+        return name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
@@ -32,17 +36,19 @@ public class Cinema {
         return film;
     }
 
-    public Cinema(String id, String city, String address, List<Film> film) {
+    public Cinema(String id, String name, Address address, List<Film> film) {
         this.id = id;
-        this.city = city;
+        //this.city = city;
+        this.name = name;
         this.address = address;
         this.film = film;
     }
+
     @Override
     public String toString() {
         return "Cinema{" +
                 "id='" + id + '\'' +
-                ", city='" + city + '\'' +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", film=" + film +
                 '}';

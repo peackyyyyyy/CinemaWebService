@@ -19,7 +19,7 @@ public class CinemaController {
 
     @PostMapping()
     public Cinema post_cinema(@RequestBody Map<String, Cinema> map) {
-        return cinemaService.add_new_cinema(map.get("cinema").getCity(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
+        return cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
     }
 
     @DeleteMapping()
@@ -28,10 +28,10 @@ public class CinemaController {
         return cinemaService.get_all_cinemas();
     }
 
-    @RequestMapping(path = "/city={city}")
+    @RequestMapping(path = "/address={address}")
     @GetMapping()
-    public List<Cinema> fetchCinemaByCity(@PathVariable(value="city") String city){
-        return cinemaService.get_cinemas_by_city(city);
+    public List<Cinema> fetchCinemaByCity(@PathVariable(value="address") String city){
+        return cinemaService.get_cinemas_by_city(address);
     }
 
 
