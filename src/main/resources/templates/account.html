@@ -116,9 +116,8 @@
         $(document).ready(function(){
       $("button").click(function(){
         $.getJSON("http://localhost:8080/films", function(result){
-          $.each(result, function(field){
+          $.each(result, function(i,field){
             $(".mypanel").append(field + " ");
-            alert(JSON.stringify(field));
           });
         });
       });
