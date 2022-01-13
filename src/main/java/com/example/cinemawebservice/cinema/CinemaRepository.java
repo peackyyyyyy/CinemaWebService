@@ -10,16 +10,16 @@ import java.util.List;
 
 public interface CinemaRepository extends MongoRepository<Cinema, String> {
 
-    @Query("{ 'city' : { '$in' : ?0 }}")
+    @Query("{ 'address.city' : { '$in' : ?0 }}")
     List<Cinema> findCinemaByCities(List<String> city);
 
     @Query("{ 'film.title' : { '$in' : ?0 }}")
     List<Cinema> findCinemaByMovies(List<String> film);
 
-    @Query("{ 'film.title' : { '$in' : ?0 }, 'city' : { '$in' : ?1 }}")
+    @Query("{ 'film.title' : { '$in' : ?0 }, 'address.city' : { '$in' : ?1 }}")
     List<Cinema> findCinemaByMoviesandfindCinemaByCities(List<String> film, List<String> city);
 
-    @Query("{ 'city' :  ?0 }")
+    @Query("{ 'address.city' :  ?0 }")
     List<Cinema> findCinemaByCity(String city);
 
     @Query("{ 'film.title' :  ?0 }")
