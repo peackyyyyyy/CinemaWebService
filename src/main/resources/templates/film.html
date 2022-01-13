@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Profil</title>
     <meta http-equiv="content.type" content="text/html"; charset="UTF-8">
@@ -25,7 +25,7 @@
     </div>
 </nav>
 <body>
-<h1 class="display-3 text-center text-info">Titre film</h1>
+<h1 class="display-3 text-center text-info">Film</h1>
 <div>
     <table id="tab" class="table table-hover">
         <tbody id="my-list">
@@ -38,3 +38,43 @@
     </table>
 </div>
 </body>
+
+<script>
+
+
+
+    setInterval(load_films(), 5000);
+
+    function load_films() {
+        var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        const url = 'http://localhost:8080/api/films/'+id;
+        fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+                console.log(data)
+                renderList(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+                console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+    }
+
+
+    function renderList(data) {
+        var list = "";
+
+        $.each(data, function (index) {
+            var link="http://localhost:8080/films/id=" + data[index].id ;
+            list += "<tr>";
+            console.log(data[index].id);
+            console.log('http://localhost:8080/films/id=' + data[index].id);
+            list += "<td><a href='"+link+"'>" + data[index].title + "</a></td>";
+            list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
+            list += "<td> duration :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
+            list += "</tr>";
+        })
+        $("#my-list").append(list);
+    }
+
+</script>
+</html>

@@ -47,7 +47,7 @@
   setInterval(load_films(), 5000);
 
   function load_films() {
-    const url = 'http://localhost:8080/films';
+    const url = 'http://localhost:8080/api/films';
     fetch(url)
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
