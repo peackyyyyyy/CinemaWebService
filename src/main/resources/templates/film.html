@@ -52,7 +52,7 @@
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
                 console.log(data)
-                renderList(data);
+                renderFilm(data);
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
                 console.log('There has been a problem with your fetch operation: ', error.message);
@@ -60,19 +60,14 @@
     }
 
 
-    function renderList(data) {
+    function renderFilm(data) {
         var list = "";
-
-        $.each(data, function (index) {
-            var link="http://localhost:8080/films/id=" + data[index].id ;
-            list += "<tr>";
-            console.log(data[index].id);
-            console.log('http://localhost:8080/films/id=' + data[index].id);
-            list += "<td><a href='"+link+"'>" + data[index].title + "</a></td>";
-            list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
-            list += "<td> duration :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
-            list += "</tr>";
-        })
+        list += "<tr>";
+        console.log(data.id);
+        list += "<td>" + data.title + "</td>";
+        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "</td>";
+        list += "<td> duration :" + data.duration + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
+        list += "</tr>";
         $("#my-list").append(list);
     }
 
