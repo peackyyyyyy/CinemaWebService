@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
 @AllArgsConstructor
@@ -45,6 +43,26 @@ public class CinemaService {
     public List<Cinema> get_cinemas_by_city(String city){
         return cinemaRepository.findCinemaByCity(city);
     }
+
+    @GetMapping
+    public List<Cinema> get_cinemas_with_params(Optional<List<String>> city, Optional<List<String>> film){
+        if (city.isPresent() && film.isEmpty()) {
+            return cinemaRepository.findCinemaByCities(city.get());
+        }
+        else if (city.isEmpty() && film.isEmpty()){
+            return cinemaRepository.findAll();
+        }
+        else if (film.isPresent() && city.isEmpty()){
+            return cinemaRepository.findCinemaByMovies(film.get());
+        }
+        else if (city.isPresent() && film.isPresent()){
+            return cinemaRepository.findCinemaByMoviesandfindCinemaByCities(film.get(), city.get());
+        }
+        else {
+            return null;
+        }
+    }
+
 
     @GetMapping
     public List<Cinema> get_cinemas_by_movie(String movie){
