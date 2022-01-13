@@ -1,5 +1,6 @@
 package com.example.cinemawebservice.cinema;
 
+import business.Address;
 import business.Cinema;
 import business.Film;
 import com.example.cinemawebservice.film.FilmRepository;
@@ -25,7 +26,7 @@ public class CinemaService {
     }
 
     @GetMapping
-    public Cinema add_new_cinema(String city, String address, List<Film> films){
+    public Cinema add_new_cinema(String city, Address address, List<Film> films){
         return cinemaRepository.insert(new Cinema(null, city, address, films));
     }
 
