@@ -26,7 +26,14 @@ public class FilmController {
     @GetMapping(path = "admin/films")
     public ModelAndView fetchadminFilmstemplate(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("films");
+        modelAndView.setViewName("admin/films");
+        return modelAndView;
+    }
+
+    @GetMapping()
+    public ModelAndView fetchindextemplate(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user/index");
         return modelAndView;
     }
 
@@ -34,7 +41,7 @@ public class FilmController {
     @GetMapping(path = "admin")
     public ModelAndView fetchadminindextemplate(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("admin/index");
         return modelAndView;
     }
 
@@ -42,7 +49,17 @@ public class FilmController {
     @GetMapping()
     public ModelAndView fetchFilmstemplate(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("films");
+        modelAndView.setViewName("user/films");
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "admin/films/id={id}")
+    @ModelAttribute
+    @GetMapping()
+    public ModelAndView fetchadminFilmtemplate(@PathVariable(value="id") String id, Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/film");
+        model.addAttribute("id", id);
         return modelAndView;
     }
 
@@ -51,7 +68,7 @@ public class FilmController {
     @GetMapping()
     public ModelAndView fetchFilmtemplate(@PathVariable(value="id") String id, Model model){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("film");
+        modelAndView.setViewName("user/film");
         model.addAttribute("id", id);
         return modelAndView;
     }
