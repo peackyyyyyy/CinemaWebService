@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Profil</title>
     <meta http-equiv="content.type" content="text/html"; charset="UTF-8">
@@ -11,10 +11,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Moncine</a>
+                <a class="nav-link active" aria-current="page" href="http://localhost:8080/">Moncine</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="films.html">Films</a>
+                <a class="nav-link" href="http://localhost:8080/films/">Films</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="apropos.html">À propos</a>
@@ -25,16 +25,51 @@
     </div>
 </nav>
 <body>
-<h1 class="display-3 text-center text-info">Titre film</h1>
-<div>
-    <table id="tab" class="table table-hover">
-        <tbody id="my-list">
-        <tr>
-            <th scope="col" >Title</th>
-            <th scope="col" >Language</th>
-            <th scope="col" >Description</th>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<h1 class="display-3 text-center text-info">Film</h1>
+        <table id="tab" class="table table-hover p-3 w-75 mx-auto">
+            <tbody id="my-list">
+            <tr class="text-center">
+                <th scope="col">Title</th>
+                <th scope="col">Language</th>
+                <th scope="col">Description</th>
+                <th scope="col">Modification</th>
+            </tr>
+            </tbody>
+        </table>
 </body>
+
+<script>
+
+
+
+    setInterval(load_films(), 5000);
+
+    function load_films() {
+        var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        const url = 'http://localhost:8080/api/films/'+id;
+        fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+                console.log(data)
+                renderFilm(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+                console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+    }
+
+
+    function renderFilm(data) {
+        var list = "";
+        list += "<tr class=\"text-center\">";
+        list += "<td>" + data.title + "</td>";
+        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "</td>";
+        list += "<td> duration :" + data.duration + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
+        list += '<td> <button type="submit" class="btn btn-primary m-3" name="modif">Modifier</button>';
+        list += '<button type="submit" class="btn btn-primary m-3" name="sup">Supprimer</button></td>';
+        list += "</tr>";
+        $("#my-list").append(list);
+    }
+
+</script>
+</html>
