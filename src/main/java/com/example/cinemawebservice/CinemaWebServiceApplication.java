@@ -66,6 +66,8 @@ public class CinemaWebServiceApplication {
             Cinema cinema19 = new Cinema("19", "Pathe Vaise", new Address("43", "rue des Docks", "69009", "Lyon"), List.of(film5, film6, film7, film8, film9, film10));
             Cinema cinema20 = new Cinema("20", "UGC Cine Cite Confluence", new Address("112", "Cr Charlemagne", "69002", "Lyon"), List.of(film4, film5, film8, film9, film10));
             try {
+                cinemaRepository.deleteAll();
+                filmRepository.deleteAll();
                 cinemaRepository.insert(List.of(cinema1, cinema2, cinema3, cinema4, cinema5, cinema6, cinema7, cinema8, cinema9, cinema10, cinema11, cinema12, cinema13, cinema14, cinema15, cinema16, cinema17, cinema18, cinema19, cinema20));
                 filmRepository.insert(List.of(film1, film2, film3, film4, film5, film6, film7, film8, film9, film10));
             }

@@ -29,6 +29,15 @@ public class FilmController {
         return modelAndView;
     }
 
+    @RequestMapping(path = "apropos")
+    @GetMapping()
+    public ModelAndView fetchapropostemplate(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("apropos");
+        return modelAndView;
+    }
+
+
     @RequestMapping(path = "films/id={id}")
     @ModelAttribute
     @GetMapping()
