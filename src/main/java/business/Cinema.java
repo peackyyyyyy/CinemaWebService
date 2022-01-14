@@ -15,6 +15,7 @@ public class Cinema {
     private final String name;
     private final Address address;
     private final List<Film> film;
+    private final List<Seance> seance;
 
     public String getId() {
         return id;
@@ -36,12 +37,17 @@ public class Cinema {
         return film;
     }
 
-    public Cinema(String id, String name, Address address, List<Film> film) {
+    public List<Seance> getSeance() {
+        return seance;
+    }
+
+    public Cinema(String id, String name, Address address, List<Film> film, List<Seance> seance) {
         this.id = id;
         //this.city = city;
         this.name = name;
         this.address = address;
         this.film = film;
+        this.seance = seance;
     }
 
     @Override
@@ -51,6 +57,7 @@ public class Cinema {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", film=" + film +
+                ", seance=" + seance +
                 '}';
     }
 

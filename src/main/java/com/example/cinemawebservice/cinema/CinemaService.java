@@ -3,15 +3,15 @@ package com.example.cinemawebservice.cinema;
 import business.Address;
 import business.Cinema;
 import business.Film;
+import business.Seance;
 import com.example.cinemawebservice.film.FilmRepository;
+import com.example.cinemawebservice.seance.SeanceRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.util.*;
-import java.util.function.Consumer;
 
 @AllArgsConstructor
 @Service
@@ -19,6 +19,7 @@ public class CinemaService {
 
     private final CinemaRepository cinemaRepository;
     private final FilmRepository filmRepository;
+    private final SeanceRepository seanceRepository;
 
     @GetMapping
     public List<Cinema> get_all_cinemas(){
@@ -26,8 +27,8 @@ public class CinemaService {
     }
 
     @GetMapping
-    public Cinema add_new_cinema(String city, Address address, List<Film> films){
-        return cinemaRepository.insert(new Cinema(null, city, address, films));
+    public Cinema add_new_cinema(String city, Address address, List<Film> films, List<Seance> seances){
+        return cinemaRepository.insert(new Cinema(null, city, address, films, seances));
     }
 
     @GetMapping
