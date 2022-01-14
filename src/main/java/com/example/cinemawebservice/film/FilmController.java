@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,22 @@ public class FilmController {
     @GetMapping()
     public List<Film> fetchAllFilms(@RequestParam(required = false) List<String> title){
         return filmService.get_films_with_params(Optional.ofNullable(title));
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping(path = "admin/films")
+    public ModelAndView fetchadminFilmstemplate(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("films");
+        return modelAndView;
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping(path = "admin")
+    public ModelAndView fetchadminindextemplate(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
     }
 
     @RequestMapping(path = "films")
