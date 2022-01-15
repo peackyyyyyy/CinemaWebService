@@ -2,9 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Profil</title>
-    <meta http-equiv="content.type" content="text/html"; charset="UTF-8">
+    <meta http-equiv="content.type" content="text/html" charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/htmlincludejs"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,9 +35,64 @@
         </table>
 </body>
 
+
 <script>
 
+    function modifier() {
+        console.log("okkkk")
 
+        //var population = document.getElementById("population").value;
+
+        //var duree = document.getElementById("duree").value;
+
+        //var confinement = document.getElementById("confinement").value;
+
+        //var port_mask = document.getElementById("mask").value;
+
+        //var deplacement_region = document.getElementById("fermeture_frontieres").value;
+
+        //var new_variant = document.getElementById("variant").value;
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/admin/films",
+            crossDomain: true,
+            data: JSON.stringify(
+                {
+                    "film":
+                        {
+                            "title": "test",
+                            "duration": 128,
+                            "language": [
+                                "Français"
+                            ],
+                            "subtitles": [
+                                "none"
+                            ],
+                            "director": "Damien Chazelle",
+                            "main_actor": [
+                                "Emma Stone",
+                                "Ryan Gosling"
+                            ],
+                            "min_age": "Rated G",
+                            "start": "1970-01-01T00:00:02.016Z",
+                            "end": "1970-01-01T00:00:02.015Z"
+                        }
+                }
+            ),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function () {
+
+                alert("Success");
+
+            },
+            error: function(){
+                alert('failure');
+            }
+        });
+
+    }
 
     setInterval(load_films(), 5000);
 
@@ -63,7 +117,7 @@
         list += "<td>" + data.title + "</td>";
         list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "</td>";
         list += "<td> duration :" + data.duration + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
-        list += '<td> <button type="submit" class="btn btn-primary m-3" name="modif">Modifier</button>';
+        list += '<td> <button onclick="modifier()" class="btn btn-primary m-3">Modifier </button>';
         list += '<button type="submit" class="btn btn-primary m-3" name="sup">Supprimer</button></td>';
         list += "</tr>";
         $("#my-list").append(list);
