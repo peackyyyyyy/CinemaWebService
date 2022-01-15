@@ -15,15 +15,15 @@ public class Screening {
     private final Integer id_film;
     private final String start_hour;
     private final String end_hour;
-    private final List<Seance> seances;
+    private final List<Seance> seance;
 
-    public Screening(Integer id, Integer id_cinema, Integer id_film, String start_hour, String end_hour, List<Seance> seances) {
+    public Screening(Integer id, Integer id_cinema, Integer id_film, String start_hour, String end_hour, List<Seance> seance) {
         this.id = id;
         this.id_cinema = id_cinema;
         this.id_film = id_film;
         this.start_hour = start_hour;
         this.end_hour = end_hour;
-        this.seances = seances;
+        this.seance = seance;
     }
 
     public int getId() {
@@ -47,7 +47,7 @@ public class Screening {
     }
 
     public List<Seance> getSeances() {
-        return seances;
+        return seance;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Screening {
                     ", id_film=" + id_film +
                     ", start_hour=" + start_hour +
                     ", end_hour=" + end_hour +
-                    ", seances=" + seances +
+                    ", seances=" + seance +
                     '}';
         }
 
