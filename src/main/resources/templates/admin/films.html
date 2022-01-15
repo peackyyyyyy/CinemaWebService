@@ -55,8 +55,8 @@
     var list = "";
       list += "<tr class=\"text-center\">";
       list += "<td><input id='title' type='text' class='form-control' name='title' placeholder=\"Title...\"></td>";
-      list += "<td><input id='languages' type='text' class='form-control' name='language' placeholder=\"Languages...\"><br><input id='subtitles' type='text' class='form-control' name='title' placeholder=\"Subtitles...\"></td>";
-      list += "<td><input id='duration' type='text' class='form-control' name='duration' placeholder=\"Duration...\"><br><input id='director' type='text' class='form-control' name='director' placeholder=\"Director...\"><br><input id='actors' type='text' class='form-control' name='actors' placeholder=\"Actors...\"><br></td>";
+      list += "<td><input id='language' type='text' class='form-control' name='language' placeholder=\"Languages...\"><br><input id='subtitle' type='text' class='form-control' name='title' placeholder=\"Subtitles...\"></td>";
+      list += "<td><input id='duration' type='number' class='form-control' name='duration' placeholder=\"Duration...\"><br><input id='director' type='text' class='form-control' name='director' placeholder=\"Director...\"><br><input id='actors' type='text' class='form-control' name='actors' placeholder=\"Actors...\"><br></td>";
       list += "<td><button onclick=\"ajoutfilm()\" class=\"btn btn-primary\" name=\"ajout\">Ajouter</button></td></tr>";
       console.log(list);
     $("#ajout-list").append(list);
@@ -67,9 +67,9 @@
     console.log("test");
     var title = document.getElementById("title").value;
 
-    var languages = document.getElementById("languages").value;
+    var language = document.getElementById("languages").value;
 
-    var subtitles = document.getElementById("subtitles").value;
+    var subtitle = document.getElementById("subtitles").value;
 
     var duration = document.getElementById("duration").value;
 
@@ -81,7 +81,29 @@
       type: "POST",
       url: "http://localhost:8080/admin/films",
       crossDomain: true,
-      data: JSON.stringify()
+      data: JSON.stringify({
+        "title": title,
+
+        "language": language,
+
+        "subtitle": subtitle,
+
+        "duration": duration,
+
+        "director": director,
+
+        "actors": actors
+      }),
+
+      contentType: "application/json; charset=utf-8",
+
+      dataType: "json",
+
+      success: function (data) {
+
+        alert("Film Ajouté");
+        window.location.href = 'http://localhost:8080/admin/films';
+      }
     });
   }
 
