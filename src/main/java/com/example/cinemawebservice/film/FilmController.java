@@ -1,13 +1,16 @@
 package com.example.cinemawebservice.film;
 
+import business.Cinema;
 import business.Film;
 import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +30,21 @@ public class FilmController {
     public ModelAndView fetchadminFilmstemplate(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin/films");
+        return modelAndView;
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @PostMapping(path = "admin/films")
+    public ModelAndView addfilm(@ModelAttribute Map<String, Film> map, BindingResult errors){
+        if (errors.hasErrors()) {
+            System.out.println(errors);
+        }
+        System.out.println(map);
+        Film film = filmService.add_new_film(map.get("title").getTitle(), map.get("duration").getDuration(), map.get("language").getLanguage(),
+                map.get("subtitles").getSubtitles(), map.get("director").getDirector(), map.get("main_actor").getMain_actor(), map.get("min_age").getMin_age(),
+                map.get("start").getStart(), map.get("end").getEnd());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/films/id="+film.getId());
         return modelAndView;
     }
 
