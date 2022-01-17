@@ -5,15 +5,12 @@ import business.Cinema;
 import business.Film;
 
 import business.Seance;
-import com.example.cinemawebservice.film.FilmRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.util.*;
-import java.util.function.Consumer;
 
 @AllArgsConstructor
 @Service

@@ -1,7 +1,5 @@
 package com.example.cinemawebservice.film;
 
-import business.Address;
-import business.Cinema;
 import business.Film;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,6 +39,5 @@ public class FilmService {
     public Optional<Film> get_film_by_id(String id){
         return filmRepository.findById(id);
     }
-
 
 }

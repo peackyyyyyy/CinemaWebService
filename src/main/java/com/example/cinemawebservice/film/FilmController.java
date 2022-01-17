@@ -1,6 +1,5 @@
 package com.example.cinemawebservice.film;
 
-import business.Cinema;
 import business.Film;
 import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
