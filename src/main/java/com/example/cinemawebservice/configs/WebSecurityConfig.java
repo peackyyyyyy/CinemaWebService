@@ -1,6 +1,5 @@
 package com.example.cinemawebservice.configs;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,9 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .and()
                 .csrf().disable().cors();
-
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
