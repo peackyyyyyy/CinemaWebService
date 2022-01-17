@@ -18,7 +18,6 @@ import java.util.function.Consumer;
 public class CinemaService {
 
     private final CinemaRepository cinemaRepository;
-    private final FilmRepository filmRepository;
 
     @GetMapping
     public List<Cinema> get_all_cinemas(){
@@ -31,18 +30,13 @@ public class CinemaService {
     }
 
     @GetMapping
-    public void delete_cinema(Cinema cinema){
-        cinemaRepository.delete(cinema);
+    public void delete_cinema(String id){
+        cinemaRepository.deleteById(id);
     }
 
     @GetMapping
     public Optional<Cinema> get_cinema_by_id(String id){
         return cinemaRepository.findById(id);
-    }
-
-    @GetMapping
-    public List<Cinema> get_cinemas_by_city(String city){
-        return cinemaRepository.findCinemaByCity(city);
     }
 
     @GetMapping
