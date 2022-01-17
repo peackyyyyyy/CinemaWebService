@@ -40,7 +40,7 @@ public class FilmController {
             System.out.println(errors);
         }
         System.out.println(map);
-        Film film = filmService.add_new_film(map.get("title").getTitle(), map.get("duration").getDuration(), map.get("language").getLanguage(),
+        Film film = filmService.add_new_film(map.get("title").getTitle(), map.get("duration").getRuntime(), map.get("language").getLanguage(),
                 map.get("subtitles").getSubtitles(), map.get("director").getDirector(), map.get("main_actor").getMain_actor(), map.get("min_age").getMin_age(),
                 map.get("start").getStart(), map.get("end").getEnd());
         ModelAndView modelAndView = new ModelAndView();

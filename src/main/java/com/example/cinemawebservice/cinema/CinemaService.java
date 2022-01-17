@@ -25,8 +25,8 @@ public class CinemaService {
     }
 
     @GetMapping
-    public Cinema add_new_cinema(String city, Address address, List<Film> films){
-        return cinemaRepository.insert(new Cinema(null, city, address, films));
+    public Cinema add_new_cinema(String name, Address address, List<Film> films){
+        return cinemaRepository.insert(new Cinema(null, name, address, films));
     }
 
     @GetMapping
