@@ -29,9 +29,23 @@
 <body>
 <h1 class="display-3 text-center text-info">Cinemas</h1>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Ajouter Cinema
-</button>
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ajouter Cinema</button>
+      <button class="btn btn-secondary m-3" id="filtre" name="ajout">Filtre</button>
+    </div>
+  </div>
+</div>
+
+<div id="table_filtre" class="container w-25">
+</div>
+
+<div class="d-flex justify-content-center">
+  <div id="filtre_city" class="m-3"></div>
+  <div id="filtre_department" class="m-3"></div>
+</div>
+
 
 <!-- Modele du pop-up -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -113,6 +127,40 @@
 
 
 <script>
+  $("#filtre").click(function (e) {
+    var list1 = "";
+    list1 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
+            "    <tbody id=\"my-list\">\n" +
+            "    <tr class=\"text-center\">\n" +
+            "      <th scope=\"col\" >city</th>\n" +
+            "    </tr>\n" +
+            "    </tbody>\n";
+    list1 += "<tr class='text-center'>";
+    list1 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
+            "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
+            "    city1\n" +
+            "  </label></td>";
+    list1+=  "</tr>";
+    list1+=  "  </table>";
+    $("#filtre_city").append(list1);
+
+    var list2 = "";
+    list2 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
+            "    <tbody id=\"my-list\">\n" +
+            "    <tr class=\"text-center\">\n" +
+            "      <th scope=\"col\" >departement</th>\n" +
+            "    </tr>\n" +
+            "    </tbody>\n";
+    list2 += "<tr class='text-center'>";
+    list2 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
+            "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
+            "    department\n" +
+            "  </label></td>";
+    list2+=  "</tr>";
+    list2+=  "  </table>";
+    $("#filtre_department").append(list2);
+
+  });
 
   setInterval(load_cinemas(), 5000);
 
