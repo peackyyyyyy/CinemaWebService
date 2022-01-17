@@ -23,6 +23,7 @@
                 <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
             </li>
         </ul>
+        <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080" role="button">Log out</a>
     </div>
 </nav>
 <body>
@@ -31,7 +32,6 @@
     <tbody id="my-list">
     <tr class="text-center">
         <th scope="col">Title</th>
-        <th scope="col">Language</th>
         <th scope="col">Description</th>
         <th scope="col">Modification</th>
     </tr>
@@ -63,7 +63,7 @@
 
                             <label for="runtime">Runtime (min)</label>
 
-                            <input type="text" class="form-control" min=20 name="runtime" id="runtime" placeholder="runtime (min) ...">
+                            <input type="number" class="form-control" min=20 name="runtime" id="runtime" placeholder="runtime (min) ...">
 
                         </div>
 
@@ -83,7 +83,7 @@
 
                         <div class="form-group col-md-6">
 
-                            <label for="subtitles">Languages</label>
+                            <label for="subtitles">Subtitles</label>
 
                             <select name="subtitles" class="form-control" id="subtitles">
 
@@ -115,7 +115,7 @@
 
                             <label for="min_age">Min Age</label>
 
-                            <input type="text" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
+                            <input type="number" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
 
                         </div>
 
