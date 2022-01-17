@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@Document("seance")
+@Document
 public class Seance {
     @Id
     private final String day;

@@ -11,11 +11,19 @@ import java.util.List;
 public class Cinema {
     @Id
     private final String id;
-    //private final String city;
     private final String name;
     private final Address address;
     private final List<Film> film;
     private final List<Seance> seance;
+
+
+    public Cinema(String id, String name, Address address, List<Film> film, List<Seance> seance) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.film = film;
+        this.seance = seance;
+    }
 
     public String getId() {
         return id;
@@ -38,17 +46,8 @@ public class Cinema {
     }
 
     public List<Seance> getSeance() {
-        return seance;
-    }
+        return seance;}
 
-    public Cinema(String id, String name, Address address, List<Film> film, List<Seance> seance) {
-        this.id = id;
-        //this.city = city;
-        this.name = name;
-        this.address = address;
-        this.film = film;
-        this.seance = seance;
-    }
 
     @Override
     public String toString() {

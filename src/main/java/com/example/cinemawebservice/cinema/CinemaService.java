@@ -3,6 +3,8 @@ package com.example.cinemawebservice.cinema;
 import business.Address;
 import business.Cinema;
 import business.Film;
+
+import business.Seance;
 import com.example.cinemawebservice.film.FilmRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -25,8 +27,8 @@ public class CinemaService {
     }
 
     @GetMapping
-    public Cinema add_new_cinema(String name, Address address, List<Film> films){
-        return cinemaRepository.insert(new Cinema(null, name, address, films));
+    public Cinema add_new_cinema(String name, Address address, List<Film> films, List<Seance> seances){
+        return cinemaRepository.insert(new Cinema(null, name, address, films, seances));
     }
 
     @GetMapping

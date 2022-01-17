@@ -2,7 +2,7 @@ package com.example.cinemawebservice.cinema;
 
 import business.Cinema;
 import business.Film;
-import com.example.cinemawebservice.film.FilmService;
+import com.example.cinemawebservice.film;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -56,7 +56,7 @@ public class CinemaController {
         System.out.println(map);
         try {
             cinemaService.delete_cinema(map.get("cinema").getId());
-            cinema = cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
+            cinema = cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm(), map.get("cinema").getSeance());
         }
         catch (Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();
@@ -70,7 +70,7 @@ public class CinemaController {
         if (errors.hasErrors()) {
             System.out.println(errors);
         }
-        Cinema cinema = cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
+        Cinema cinema = cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm(), map.get("cinema").getSeance());
         return ResponseEntity.ok().body("http://localhost:8080/admin/cinemas/id="+cinema.getId());
     }
 
