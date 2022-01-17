@@ -44,7 +44,7 @@ public class Film {
         return start;
     }
 
-    public Integer getDuration() {
+    public Integer getRuntime() {
         return runtime;
     }
 
