@@ -25,7 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*").permitAll()
                 .antMatchers("/admin/*").authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .and()
+                .csrf().disable().cors();
     }
 
     @Override

@@ -13,7 +13,7 @@
                 <a class="nav-link active" aria-current="page" href="http://localhost:8080/">Moncine</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:8080/films/">Films</a>
+                <a class="nav-link" href="http://localhost:8080/admin/films/">Films</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="apropos.html">À propos</a>
@@ -38,57 +38,30 @@
 
 <script>
 
-    function modifier() {
-        console.log("okkkk")
+    function delete_film(id) {
 
-        //var population = document.getElementById("population").value;
-
-        //var duree = document.getElementById("duree").value;
-
-        //var confinement = document.getElementById("confinement").value;
-
-        //var port_mask = document.getElementById("mask").value;
-
-        //var deplacement_region = document.getElementById("fermeture_frontieres").value;
-
-        //var new_variant = document.getElementById("variant").value;
+        console.log(id)
 
         $.ajax({
-            type: "POST",
+            type: "DELETE",
             url: "http://localhost:8080/admin/films",
             crossDomain: true,
             data: JSON.stringify(
                 {
-                    "film":
-                        {
-                            "title": "test",
-                            "duration": 128,
-                            "language": [
-                                "Français"
-                            ],
-                            "subtitles": [
-                                "none"
-                            ],
-                            "director": "Damien Chazelle",
-                            "main_actor": [
-                                "Emma Stone",
-                                "Ryan Gosling"
-                            ],
-                            "min_age": "Rated G",
-                            "start": "1970-01-01T00:00:02.016Z",
-                            "end": "1970-01-01T00:00:02.015Z"
-                        }
+                    "id": String(id)
                 }
             ),
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function () {
-
+            success: function (response) {
+                console.log(response)
+                window.location.href = response
                 alert("Success");
 
             },
-            error: function(){
-                alert('failure');
+            error: function (link) {
+                console.log(link)
+                alert("Error : "+link)
+
             }
         });
 
@@ -117,8 +90,8 @@
         list += "<td>" + data.title + "</td>";
         list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "</td>";
         list += "<td> duration :" + data.duration + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
-        list += '<td> <button onclick="modifier()" class="btn btn-primary m-3">Modifier </button>';
-        list += '<button type="submit" class="btn btn-primary m-3" name="sup">Supprimer</button></td>';
+        list += "<td> <button onclick=modifier() class='btn btn-primary m-3'>Modifier </button>";
+        list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_film("+JSON.stringify(data.id)+")>Supprimer</button></td>";
         list += "</tr>";
         $("#my-list").append(list);
     }

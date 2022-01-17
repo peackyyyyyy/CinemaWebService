@@ -1,8 +1,8 @@
 package com.example.cinemawebservice.film;
 
-import business.Cinema;
 import business.Film;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -34,18 +34,28 @@ public class FilmController {
     }
 
     @RolesAllowed({"ADMIN"})
+    @DeleteMapping(path = "admin/films")
+    public ResponseEntity<String>  deletefilm(@RequestBody Map<String, String> map){
+        try {
+            filmService.delete_film(map.get("id"));
+        }
+        catch (Exception e){
+            return (ResponseEntity<String>) ResponseEntity.badRequest();
+        }
+        return ResponseEntity.ok().body("http://localhost:8080/admin/films");
+    }
+
+    @RolesAllowed({"ADMIN"})
     @PostMapping(path = "admin/films")
-    public ModelAndView addfilm(@ModelAttribute Map<String, Film> map, BindingResult errors){
+    public ResponseEntity<String> addfilm(@RequestBody Map<String, Film> map, BindingResult errors){
         if (errors.hasErrors()) {
             System.out.println(errors);
         }
         System.out.println(map);
-        Film film = filmService.add_new_film(map.get("title").getTitle(), map.get("duration").getDuration(), map.get("language").getLanguage(),
-                map.get("subtitles").getSubtitles(), map.get("director").getDirector(), map.get("main_actor").getMain_actor(), map.get("min_age").getMin_age(),
-                map.get("start").getStart(), map.get("end").getEnd());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin/films/id="+film.getId());
-        return modelAndView;
+        Film film = filmService.add_new_film(map.get("film").getTitle(), map.get("film").getDuration(), map.get("film").getLanguage(),
+                map.get("film").getSubtitles(), map.get("film").getDirector(), map.get("film").getMain_actor(), map.get("film").getMin_age(),
+                map.get("film").getStart(), map.get("film").getEnd());
+        return ResponseEntity.ok().body("http://localhost:8080/admin/films/id="+film.getId());
     }
 
     @GetMapping()

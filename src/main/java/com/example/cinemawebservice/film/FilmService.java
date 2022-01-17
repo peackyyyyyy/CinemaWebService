@@ -27,6 +27,11 @@ public class FilmService {
     }
 
     @GetMapping
+    public void delete_film(String id){
+        filmRepository.deleteById(id);
+    }
+
+    @GetMapping
     public Film add_new_film(String title, Integer duration, List<String> language, List<String> subtitles, String director, List<String> main_actors, String age, Date start, Date end){
         return filmRepository.insert(new Film(null, title, duration, language, subtitles, director, main_actors, age , start, end));
     }
