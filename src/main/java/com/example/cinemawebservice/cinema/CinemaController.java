@@ -55,7 +55,6 @@ public class CinemaController {
         Cinema cinema = null;
         System.out.println(map);
         try {
-            cinemaService.delete_cinema(map.get("cinema").getId());
             cinema = cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
         }
         catch (Exception e){

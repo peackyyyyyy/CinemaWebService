@@ -30,6 +30,11 @@ public class CinemaService {
     }
 
     @GetMapping
+    public Cinema update_cinema(String id, String city, Address address, List<Film> films){
+        return cinemaRepository.save(new Cinema(id, city, address, films));
+    }
+
+    @GetMapping
     public void delete_cinema(String id){
         cinemaRepository.deleteById(id);
     }

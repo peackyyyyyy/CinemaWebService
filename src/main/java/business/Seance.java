@@ -12,9 +12,9 @@ import java.util.List;
 public class Seance {
     @Id
     private final String day;
-    private final String hour;
+    private final List<String> hour;
 
-    public Seance(String day, String hour) {
+    public Seance(String day, List<String> hour) {
         this.day = day;
         this.hour = hour;
     }
@@ -23,7 +23,7 @@ public class Seance {
         return day;
     }
 
-    public String getHour() {
+    public List<String> getHour() {
         return hour;
     }
 

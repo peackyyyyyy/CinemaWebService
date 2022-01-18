@@ -38,6 +38,11 @@ public class FilmService {
     }
 
     @GetMapping
+    public Film update_film(String id, String title, Integer duration, List<String> language, List<String> subtitles, String director, List<String> main_actors, String age, Date start, Date end){
+        return filmRepository.save(new Film(id, title, duration, language, subtitles, director, main_actors, age , start, end));
+    }
+
+    @GetMapping
     public Optional<Film> get_film_by_id(String id){
         return filmRepository.findById(id);
     }
