@@ -146,7 +146,7 @@ public class CinemaController {
         System.out.println(map);
         try {
             filmService.delete_film(map.get("film").getId());
-            film = filmService.add_new_film(map.get("film").getTitle(), map.get("film").getDuration(), map.get("film").getLanguage(),
+            film = filmService.add_new_film(map.get("film").getTitle(), map.get("film").getRuntime(), map.get("film").getLanguage(),
                     map.get("film").getSubtitles(), map.get("film").getDirector(), map.get("film").getMain_actor(), map.get("film").getMin_age(),
                     map.get("film").getStart(), map.get("film").getEnd());
         }
@@ -163,7 +163,7 @@ public class CinemaController {
             System.out.println(errors);
         }
         System.out.println(map);
-        Film film = filmService.add_new_film(map.get("film").getTitle(), map.get("film").getDuration(), map.get("film").getLanguage(),
+        Film film = filmService.add_new_film(map.get("film").getTitle(), map.get("film").getRuntime(), map.get("film").getLanguage(),
                 map.get("film").getSubtitles(), map.get("film").getDirector(), map.get("film").getMain_actor(), map.get("film").getMin_age(),
                 map.get("film").getStart(), map.get("film").getEnd());
         return ResponseEntity.ok().body("http://localhost:8080/admin/films/id="+film.getId());

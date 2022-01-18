@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Profil</title>
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+
   <meta http-equiv="content.type" content="text/html" charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -43,9 +45,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <div>
 
-          <div class="form-row p-3">
+          <sele class="form-row p-3">
 
             <div class="form-group col-md-6">
 
@@ -63,29 +65,35 @@
 
             </div>
 
+
             <div class="form-group col-md-6">
-
-              <label for="languages">Languages</label>
-
-              <select name="languages" class="form-control" id="languages">
-
-                <option value="FR">FR</option>
-
-                <option value="EN">VO</option>
-
-              </select>
-
+              <label for="languages">Language</label>
+                  <select id="languages" multiple="multiple" class="form-control" >
+                    <optgroup>
+                    <option value="EN">EN</option>
+                    <option value="FR">FR</option>
+                    <option value="ES">ES</option>
+                    <option value="IT">IT</option>
+                    </optgroup>
+                  </select>
             </div>
 
+            <script id="example">
+              $('#languages').multiselect({
+                enableClickableOptGroups: true
+              });
+            </script>
+
+
             <div class="form-group col-md-6">
 
-              <label for="subtitles">Languages</label>
+              <label for="subtitles">Subtitles</label>
 
               <select name="subtitles" class="form-control" id="subtitles">
 
-                <option value="FR">FR</option>
+                <option value="FR">None</option>
 
-                <option value="EN">VO</option>
+                <option value="EN">VOSTFR</option>
 
               </select>
 
@@ -221,7 +229,7 @@
       list += "<tr class='text-center'>";
       list += "<td><a href='"+link+"'>" + data[index].title + "</a></td>";
       list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
-      list += "<td> runtime :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
+      list += "<td> runtime :" + data[index].runtime + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
       list += "</tr>";
     })
     $("#my-list").append(list);
