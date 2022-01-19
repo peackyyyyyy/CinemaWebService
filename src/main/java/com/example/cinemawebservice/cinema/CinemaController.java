@@ -23,7 +23,9 @@ public class CinemaController {
     @RequestMapping(path = "api/cinemas")
     @GetMapping()
     public List<Cinema> fetchAllCinema(@RequestParam(required = false) List<String> city, @RequestParam(required = false) List<String> titles){
-        return cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(titles));
+        List<Cinema> cinema = cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(titles));
+        System.out.println(cinema);
+        return cinema;
     }
 
     @RolesAllowed({"ADMIN"})
@@ -55,7 +57,6 @@ public class CinemaController {
         Cinema cinema = null;
         System.out.println(map);
         try {
-            cinemaService.delete_cinema(map.get("cinema").getId());
             cinema = cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
         }
         catch (Exception e){
@@ -114,6 +115,12 @@ public class CinemaController {
     @GetMapping()
     public List<Film> fetchAllFilms(@RequestParam(required = false) List<String> title){
         return filmService.get_films_with_params(Optional.ofNullable(title));
+    }
+
+    @RequestMapping(path = "api/city")
+    @GetMapping()
+    public ResponseEntity<List<String>>  fetchAllCity(){
+        return ResponseEntity.ok().body(cinemaService.get_all_city());
     }
 
     @RolesAllowed({"ADMIN"})

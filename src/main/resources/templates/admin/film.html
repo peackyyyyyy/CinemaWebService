@@ -23,6 +23,7 @@
                 <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
             </li>
         </ul>
+        <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/logout" role="button">Log out</a>
     </div>
 </nav>
 <body>
@@ -83,7 +84,7 @@
 
                         <div class="form-group col-md-6">
 
-                            <label for="subtitles">Languages</label>
+                            <label for="subtitles">Subtitles</label>
 
                             <select name="subtitles" class="form-control" id="subtitles">
 
@@ -115,7 +116,7 @@
 
                             <label for="min_age">Min Age</label>
 
-                            <input type="text" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
+                            <input type="number" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
 
                         </div>
 
@@ -149,6 +150,7 @@
         var director = document.getElementById("director").value;
         var actors = document.getElementById("main_actor").value;
         var min_age = document.getElementById("min_age").value;
+
         $.ajax({
             type: "PUT",
             url: "http://localhost:8080/admin/films",
@@ -241,12 +243,19 @@
         var list = "";
         list += "<tr class=\"text-center\">";
         list += "<td>" + data.title + "</td>";
-        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "</td>";
-        list += "<td> duration :" + data.duration + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
+        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "<br> runtime :" + data.duration + "</td>";
+        list += "<td> director : " + data.director + "<br> actors : " + data.main_actor + "<br> Minimum Age: " + data.min_age + "</td>";
         list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier Film </button>";
         list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_film("+JSON.stringify(data.id)+")>Supprimer</button></td>";
         list += "</tr>";
         $("#my-list").append(list);
+        document.getElementById("title").value = data.title;
+        document.getElementById("languages").value = data.language;
+        document.getElementById("subtitles").value = data.subtitles;
+        document.getElementById("runtime").value = data.duration;
+        document.getElementById("director").value = data.director;
+        document.getElementById("main_actor").value = data.main_actor;
+        document.getElementById("min_age").value = data.min_age;
     }
 
 </script>

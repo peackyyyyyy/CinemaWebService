@@ -25,14 +25,29 @@
         <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
       </li>
     </ul>
+    <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/logout" role="button">Log out</a>
   </div>
 </nav>
 <body>
 <h1 class="display-3 text-center text-info">Films</h1>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Ajouter Film
-</button>
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#exampleModal">Ajouter Film</button>
+      <button class="btn btn-secondary m-3" id="filtre" name="ajout">Filtre</button>
+    </div>
+  </div>
+</div>
+<div id="table_filtre" class="container w-25">
+</div>
+
+<div class="d-flex justify-content-center">
+  <div id="filtre_title" class="m-3"></div>
+  <div id="filtre_language" class="m-3"></div>
+  <div id="filtre_director" class="m-3"></div>
+  <div id="filtre_mainactor" class="m-3"></div>
+</div>
 
 <!-- Modele du pop-up -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -151,9 +166,74 @@
 
 
 <script>
+  $("#filtre").click(function (e) {
+              var list1 = "";
+              list1 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
+                      "    <tbody id=\"my-list\">\n" +
+                      "    <tr class=\"text-center\">\n" +
+                      "      <th scope=\"col\" >Title</th>\n" +
+                      "    </tr>\n" +
+                      "    </tbody>\n";
+              list1 += "<tr class='text-center'>";
+              list1 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
+                      "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
+                      "    TItle1\n" +
+                      "  </label></td>";
+              list1+=  "</tr>";
+              list1+=  "  </table>";
+              $("#filtre_title").append(list1);
+
+            var list2 = "";
+            list2 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
+                    "    <tbody id=\"my-list\">\n" +
+                    "    <tr class=\"text-center\">\n" +
+                    "      <th scope=\"col\" >Languages</th>\n" +
+                    "    </tr>\n" +
+                    "    </tbody>\n";
+            list2 += "<tr class='text-center'>";
+            list2 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
+                    "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
+                    "    language1\n" +
+                    "  </label></td>";
+            list2+=  "</tr>";
+            list2+=  "  </table>";
+            $("#filtre_language").append(list2);
+
+
+            var list3 = "";
+            list3 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
+                    "    <tbody id=\"my-list\">\n" +
+                    "    <tr class=\"text-center\">\n" +
+                    "      <th scope=\"col\" >Director</th>\n" +
+                    "    </tr>\n" +
+                    "    </tbody>\n";
+            list3 += "<tr class='text-center'>";
+            list3 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
+                    "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
+                    "    director1\n" +
+                    "  </label></td>";
+            list3+=  "</tr>";
+            list3+=  "  </table>";
+            $("#filtre_director").append(list3);
+
+            var list4 = "";
+            list4 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
+                    "    <tbody id=\"my-list\">\n" +
+                    "    <tr class=\"text-center\">\n" +
+                    "      <th scope=\"col\" >Main Actors</th>\n" +
+                    "    </tr>\n" +
+                    "    </tbody>\n";
+            list4 += "<tr class='text-center'>";
+            list4 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
+                    "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
+                    "    Main Actor1\n" +
+                    "  </label></td>";
+            list4+=  "</tr>";
+            list4+=  "  </table>";
+            $("#filtre_mainactor").append(list4);
+  });
 
   setInterval(load_films(), 5000);
-
 
   $("#ajouter").click(function (e) {
 

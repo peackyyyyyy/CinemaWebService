@@ -27,6 +27,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .and()
+                .logout()
+                .deleteCookies("remove")
+                .invalidateHttpSession(true)
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .and()
                 .csrf().disable().cors();
     }
 
