@@ -33,11 +33,49 @@
   <div class="row">
     <div class="col text-center">
       <button type="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#exampleModal">Ajouter Film</button>
-      <button class="btn btn-secondary m-3" id="filtre" name="ajout">Filtre</button>
+      <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_city()">Filtre</button>
     </div>
   </div>
 </div>
-<div id="table_filtre" class="container w-25">
+
+<div class="modal fade" id="filtreModal" tabindex="-1" role="dialog" aria-labelledby="filtreModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filtreModalLabel">Filtre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="form-row p-3">
+
+            <div class="form-group col-md-6">
+
+              <label for="languages_filter">Languages</label>
+              <select class="form-control" id="languages_filter">
+              </select>
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="subtitles_filter">Subtitles</label>
+              <select class="form-control" id="subtitles_filter">
+              </select>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="filtrer" class="btn btn-primary" onclick="filter_films()">Appliquer</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="d-flex justify-content-center">
@@ -158,72 +196,44 @@
 
 
 <script>
-  $("#filtre").click(function (e) {
-              var list1 = "";
-              list1 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
-                      "    <tbody id=\"my-list\">\n" +
-                      "    <tr class=\"text-center\">\n" +
-                      "      <th scope=\"col\" >Title</th>\n" +
-                      "    </tr>\n" +
-                      "    </tbody>\n";
-              list1 += "<tr class='text-center'>";
-              list1 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
-                      "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
-                      "    TItle1\n" +
-                      "  </label></td>";
-              list1+=  "</tr>";
-              list1+=  "  </table>";
-              $("#filtre_title").append(list1);
+  function renderCity(data){
+    $("#languages_filter").empty();
+    var list = "";
+    $.each(data, function (index) {
+      list += "<option value="+data[index]+">"+data[index]+"</option>"
+    })
+    $("#languages_filter").append(list);
+  }
+  function load_city(){
+    const url = 'http://localhost:8080/api/languages';
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data);
+              //$("#filtreModal .close").click();
+              $("#my-list").empty();
+              renderCity(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
 
-            var list2 = "";
-            list2 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
-                    "    <tbody id=\"my-list\">\n" +
-                    "    <tr class=\"text-center\">\n" +
-                    "      <th scope=\"col\" >Languages</th>\n" +
-                    "    </tr>\n" +
-                    "    </tbody>\n";
-            list2 += "<tr class='text-center'>";
-            list2 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
-                    "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
-                    "    language1\n" +
-                    "  </label></td>";
-            list2+=  "</tr>";
-            list2+=  "  </table>";
-            $("#filtre_language").append(list2);
-
-
-            var list3 = "";
-            list3 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
-                    "    <tbody id=\"my-list\">\n" +
-                    "    <tr class=\"text-center\">\n" +
-                    "      <th scope=\"col\" >Director</th>\n" +
-                    "    </tr>\n" +
-                    "    </tbody>\n";
-            list3 += "<tr class='text-center'>";
-            list3 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
-                    "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
-                    "    director1\n" +
-                    "  </label></td>";
-            list3+=  "</tr>";
-            list3+=  "  </table>";
-            $("#filtre_director").append(list3);
-
-            var list4 = "";
-            list4 += "<table id=\"tab\" class=\"table table-hover p-3 w-75 mx-auto\">\n" +
-                    "    <tbody id=\"my-list\">\n" +
-                    "    <tr class=\"text-center\">\n" +
-                    "      <th scope=\"col\" >Main Actors</th>\n" +
-                    "    </tr>\n" +
-                    "    </tbody>\n";
-            list4 += "<tr class='text-center'>";
-            list4 += "<td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">\n" +
-                    "  <label class=\"form-check-label\" for=\"flexCheckDefault\">\n" +
-                    "    Main Actor1\n" +
-                    "  </label></td>";
-            list4+=  "</tr>";
-            list4+=  "  </table>";
-            $("#filtre_mainactor").append(list4);
-  });
+  function filter_films() {
+    var url = 'http://localhost:8080/api/cinemas?';
+    var city = document.getElementById("languages_filter").value;
+    url += 'city='+city
+    console.log(url)
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data)
+              renderCinemas(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
 
   setInterval(load_films(), 5000);
 
