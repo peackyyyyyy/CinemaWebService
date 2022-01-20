@@ -7,8 +7,17 @@
   <script src="https://unpkg.com/htmlincludejs"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+  <!--Police Films-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+
   <style>
-  h1.movie-list-title{
+
+    #filmtitle{
+      font-family: 'Concert One', cursive;
+    }
+    #titleh1{
     margin-bottom: 50px;
   }
     .container {
@@ -52,6 +61,8 @@
       width: 270px;
       height: 400px;
       object-fit: cover;
+      border-radius: 10px;
+
     }
 
     .movie-list-item-title{
@@ -112,12 +123,12 @@
 <body>
 
 
-  <h1 class="display-3 text-center text-info">Films</h1>
+  <h1 class="display-3 text-center text-info" id="filmtitle">Films</h1>
 
   <!-- <div class="container">
     <div class="content-container"> -->
       <div class="movie-list-container">
-        <h1 class="movie-list-title">En ce moment</h1>
+        <h1 class="movie-list-title" id="titleh1">En ce moment</h1>
         <div class="movie-list-wrapper">
           <div class="movie-list">
             <div class="movie-list-item">
@@ -150,24 +161,7 @@
               <p class="movie-list-item-desc">description</p>-->
               <button class="movie-list-item-button">Voir</button>
             </div>
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://images-na.ssl-images-amazon.com/images/I/919kXtR9XjL.jpg" alt="">
-              <!-- <span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p>-->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://images-na.ssl-images-amazon.com/images/I/919kXtR9XjL.jpg" alt="">
-              <!-- <span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p>-->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://images-na.ssl-images-amazon.com/images/I/919kXtR9XjL.jpg" alt="">
-              <!-- <span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p>-->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
+
           </div>
         </div>
     </div>
