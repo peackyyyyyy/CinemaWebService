@@ -61,65 +61,35 @@
 
                         <div class="form-group col-md-6">
 
-                            <label for="runtime">Runtime (min)</label>
+                            <label for="city">City</label>
 
-                            <input type="number" class="form-control" min=20 name="runtime" id="runtime" placeholder="runtime (min) ...">
-
-                        </div>
-
-                        <div class="form-group col-md-6">
-
-                            <label for="languages">Languages</label>
-
-                            <select name="languages" class="form-control" id="languages">
-
-                                <option value="FR">FR</option>
-
-                                <option value="EN">VO</option>
-
-                            </select>
+                            <input type="text" class="form-control" min=20 name="city" id="city" placeholder="city ...">
 
                         </div>
 
                         <div class="form-group col-md-6">
 
-                            <label for="subtitles">Subtitles</label>
+                            <label for="number">Number</label>
 
-                            <select name="subtitles" class="form-control" id="subtitles">
-
-                                <option value="FR">FR</option>
-
-                                <option value="EN">VO</option>
-
-                            </select>
+                            <input type="number" class="form-control" min=20 name="number" id="number" placeholder="number ...">
 
                         </div>
 
                         <div class="form-group col-md-6">
 
-                            <label for="director">Director</label>
+                            <label for="street">Street</label>
 
-                            <input type="text" class="form-control" min=1 name="director" id="director" placeholder="director ...">
-
-                        </div>
-
-                        <div class="form-group col-md-6">
-
-                            <label for="main_actor">Main actors</label>
-
-                            <input type="text" class="form-control" min=1 name="main_actor" id="main_actor" placeholder="main actors ...">
+                            <input type="text" class="form-control" min=20 name="street" id="street" placeholder="street ...">
 
                         </div>
 
                         <div class="form-group col-md-6">
 
-                            <label for="min_age">Min Age</label>
+                            <label for="zip">Zip</label>
 
-                            <input type="number" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
+                            <input type="number" class="form-control" min=20 name="zip" id="zip" placeholder="zip ...">
 
                         </div>
-
-
 
                     </div>
 
@@ -143,36 +113,26 @@
         var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("=")[1];
         console.log(id)
         var title = document.getElementById("title").value;
-        var languages = document.getElementById("languages").value;
-        var subtitles = document.getElementById("subtitles").value;
-        var runtime = document.getElementById("runtime").value;
-        var director = document.getElementById("director").value;
-        var actors = document.getElementById("main_actor").value;
-        var min_age = document.getElementById("min_age").value;
+        var city = document.getElementById("city").value;
+        var number = document.getElementById("number").value;
+        var street = document.getElementById("street").value;
+        var zip = document.getElementById("zip").value;
         $.ajax({
             type: "PUT",
-            url: "http://localhost:8080/admin/films",
+            url: "http://localhost:8080/admin/cinemas",
             crossDomain: true,
             data: JSON.stringify(
                 {
-                    "film":
+                    "cinema":
                         {
-                            "id": id,
-                            "title": title,
-                            "duration": runtime,
-                            "language": [
-                                languages
-                            ],
-                            "subtitles": [
-                                subtitles
-                            ],
-                            "director": director,
-                            "main_actor": [
-                                actors
-                            ],
-                            "min_age": min_age,
-                            "start": "1970-01-01T00:00:02.016Z",
-                            "end": "1970-01-01T00:00:02.015Z"
+                            "name": title,
+                            "address": {
+                                "number": number,
+                                "street": street,
+                                "zip": zip,
+                                "city": city
+                            },
+                            "films": []
                         }
                 }
             ),
@@ -191,13 +151,13 @@
         });
     });
 
-    function delete_film(id) {
+    function delete_cinema(id) {
 
         console.log(id)
 
         $.ajax({
             type: "DELETE",
-            url: "http://localhost:8080/admin/films",
+            url: "http://localhost:8080/admin/cinemas",
             crossDomain: true,
             data: JSON.stringify(
                 {
@@ -241,11 +201,16 @@
         var list = "";
         list += "<tr class='text-center'>";
         list += "<td>" + data.name + "</td>";
-        list += "<td> city : " +data.address.city + "<br> adresse : " + data.address.street + "</td>";
+        list += "<td> City : " +data.address.city + "<br> Adress : " + data.address.number + data.address.street + "</td>";
         list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier </button>";
-        list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_film("+JSON.stringify(data.id)+")> Supprimer </button></td>";
+        list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_cinema("+JSON.stringify(data.id)+")> Supprimer </button></td>";
         list += "</tr>";
         $("#my-list").append(list);
+        document.getElementById("title").value = data.name;
+        document.getElementById("city").value = data.address.city;
+        document.getElementById("number").value = data.address.number;
+        document.getElementById("street").value = data.address.street;
+        document.getElementById("zip").value = data.address.zip;
     }
 
 </script>

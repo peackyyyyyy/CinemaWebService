@@ -161,7 +161,7 @@
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
               console.log(data);
-              $("#filtreModal .close").click();
+              //$("#filtreModal .close").click();
               $("#my-list").empty();
               renderCity(data);
             })
