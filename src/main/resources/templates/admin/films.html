@@ -1,0 +1,322 @@
+<!doctype html>
+<html>
+<head>
+  <title>Profil</title>
+  <meta http-equiv="content.type" content="text/html" charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="http://localhost:8080/admin">Moncine</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8080/admin/cinemas/">Cinemas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8080/admin/films/">Films</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
+      </li>
+    </ul>
+    <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/logout" role="button">Log out</a>
+  </div>
+</nav>
+<body>
+<h1 class="display-3 text-center text-info">Films</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#exampleModal">Ajouter Film</button>
+      <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_city()">Filtre</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="filtreModal" tabindex="-1" role="dialog" aria-labelledby="filtreModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filtreModalLabel">Filtre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="form-row p-3">
+
+            <div class="form-group col-md-6">
+
+              <label for="languages_filter">Languages</label>
+              <select class="form-control" id="languages_filter">
+              </select>
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="subtitles_filter">Subtitles</label>
+              <select class="form-control" id="subtitles_filter">
+              </select>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="filtrer" class="btn btn-primary" onclick="filter_films()">Appliquer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <div id="filtre_title" class="m-3"></div>
+  <div id="filtre_language" class="m-3"></div>
+  <div id="filtre_director" class="m-3"></div>
+  <div id="filtre_mainactor" class="m-3"></div>
+</div>
+
+<!-- Modele du pop-up -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter Film</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="form-row p-3">
+
+            <div class="form-group col-md-6">
+
+              <label for="title">Title</label>
+
+              <input type="text" class="form-control" min=1 name="title" id="title" placeholder="title ...">
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="runtime">Runtime (min)</label>
+
+              <input type="text" class="form-control" min=20 name="runtime" id="runtime" placeholder="runtime (min) ...">
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="languages">Languages</label>
+
+              <select name="languages" class="form-control" id="languages">
+
+                <option value="FR">FR</option>
+
+                <option value="EN">VO</option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="subtitles">Languages</label>
+
+              <select name="subtitles" class="form-control" id="subtitles">
+
+                <option value="FR">FR</option>
+
+                <option value="EN">VO</option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="director">Director</label>
+
+              <input type="text" class="form-control" min=1 name="director" id="director" placeholder="director ...">
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="main_actor">Main actors</label>
+
+              <input type="text" class="form-control" min=1 name="main_actor" id="main_actor" placeholder="main actors ...">
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="min_age">Min Age</label>
+
+              <input type="text" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
+
+            </div>
+
+
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="ajouter" class="btn btn-primary" onclick="">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <table id="tab" class="table table-hover p-3 w-75 mx-auto">
+    <tbody id="my-list">
+    <tr class="text-center">
+      <th scope="col" >Title</th>
+      <th scope="col" >Language</th>
+      <th scope="col" >Description</th>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+
+
+<script>
+  function renderCity(data){
+    $("#languages_filter").empty();
+    var list = "";
+    $.each(data, function (index) {
+      list += "<option value="+data[index]+">"+data[index]+"</option>"
+    })
+    $("#languages_filter").append(list);
+  }
+  function load_city(){
+    const url = 'http://localhost:8080/api/languages';
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data);
+              //$("#filtreModal .close").click();
+              $("#my-list").empty();
+              renderCity(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
+
+  function filter_films() {
+    var url = 'http://localhost:8080/api/cinemas?';
+    var city = document.getElementById("languages_filter").value;
+    url += 'city='+city
+    console.log(url)
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data)
+              renderCinemas(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
+
+  setInterval(load_films(), 5000);
+
+  $("#ajouter").click(function (e) {
+
+    e.preventDefault();
+
+    var title = document.getElementById("title").value;
+    var languages = document.getElementById("languages").value;
+    var subtitles = document.getElementById("subtitles").value;
+    var runtime = document.getElementById("runtime").value;
+    var director = document.getElementById("director").value;
+    var actors = document.getElementById("main_actor").value;
+    var min_age = document.getElementById("min_age").value;
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:8080/admin/films",
+      crossDomain: true,
+      data: JSON.stringify(
+              {
+                "film":
+                        {
+                          "title": title,
+                          "duration": runtime,
+                          "language": [
+                            languages
+                          ],
+                          "subtitles": [
+                            subtitles
+                          ],
+                          "director": director,
+                          "main_actor": [
+                            actors
+                          ],
+                          "min_age": min_age,
+                          "start": "1970-01-01T00:00:02.016Z",
+                          "end": "1970-01-01T00:00:02.015Z"
+                        }
+              }
+      ),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        console.log(response)
+        window.location.href = response
+        alert("Success");
+
+      },
+      error: function (link) {
+        console.log(link)
+        alert("Error : "+link)
+
+      }
+    });
+  });
+
+  function load_films() {
+    const url = 'http://localhost:8080/api/films';
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data)
+              renderFilms(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
+
+
+  function renderFilms(data) {
+    var list = "";
+
+    $.each(data, function (index) {
+      var link="http://localhost:8080/admin/films/id=" + data[index].id ;
+      list += "<tr class='text-center'>";
+      list += "<td><a href='"+link+"'>" + data[index].title + "</a></td>";
+      list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
+      list += "<td> runtime :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
+      list += "</tr>";
+    })
+    $("#my-list").append(list);
+  }
+
+</script>
+
+</html>

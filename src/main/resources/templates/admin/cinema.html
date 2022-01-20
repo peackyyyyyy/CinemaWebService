@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profil</title>
+    <meta http-equiv="content.type" content="text/html" charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="http://localhost:8080/admin">Moncine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:8080/admin/cinemas/">Cinemas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:8080/admin/films/">Films</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
+            </li>
+        </ul>
+        <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/logout" role="button">Log out</a>
+    </div>
+</nav>
+<body>
+<h1 class="display-3 text-center text-info">Cinema</h1>
+<table id="tab" class="table table-hover p-3 w-75 mx-auto">
+    <tbody id="my-list">
+    <tr class="text-center">
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Modification</th>
+    </tr>
+    </tbody>
+</table>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier Film</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-row p-3">
+
+                        <div class="form-group col-md-6">
+
+                            <label for="title">Title</label>
+
+                            <input type="text" class="form-control" min=1 name="title" id="title" placeholder="title ...">
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+                            <label for="city">City</label>
+
+                            <input type="text" class="form-control" min=20 name="city" id="city" placeholder="city ...">
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+                            <label for="number">Number</label>
+
+                            <input type="number" class="form-control" min=20 name="number" id="number" placeholder="number ...">
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+                            <label for="street">Street</label>
+
+                            <input type="text" class="form-control" min=20 name="street" id="street" placeholder="street ...">
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+                            <label for="zip">Zip</label>
+
+                            <input type="number" class="form-control" min=20 name="zip" id="zip" placeholder="zip ...">
+
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="modifier" class="btn btn-primary" onclick="">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+<script>
+
+    $("#modifier").click(function (e) {
+
+        e.preventDefault();
+        var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("=")[1];
+        console.log(id)
+        var title = document.getElementById("title").value;
+        var city = document.getElementById("city").value;
+        var number = document.getElementById("number").value;
+        var street = document.getElementById("street").value;
+        var zip = document.getElementById("zip").value;
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:8080/admin/cinemas",
+            crossDomain: true,
+            data: JSON.stringify(
+                {
+                    "cinema":
+                        {
+                            "name": title,
+                            "address": {
+                                "number": number,
+                                "street": street,
+                                "zip": zip,
+                                "city": city
+                            },
+                            "films": []
+                        }
+                }
+            ),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                console.log(response)
+                window.location.href = response
+                alert("Success");
+
+            },
+            error: function (link) {
+                console.log(link)
+                alert("Error : "+link)
+
+            }
+        });
+    });
+
+    function delete_cinema(id) {
+
+        console.log(id)
+
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8080/admin/cinemas",
+            crossDomain: true,
+            data: JSON.stringify(
+                {
+                    "id": String(id)
+                }
+            ),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                console.log(response)
+                window.location.href = response
+                alert("Success");
+
+            },
+            error: function (link) {
+                console.log(link)
+                alert("Error : "+link)
+
+            }
+        });
+
+    }
+
+    setInterval(load_cinema(), 5000);
+
+    function load_cinema() {
+        var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        const url = 'http://localhost:8080/api/cinemas/'+id;
+        fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+                console.log(data)
+                renderCinemas(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+                console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+    }
+
+
+    function renderCinemas(data) {
+        var list = "";
+        list += "<tr class='text-center'>";
+        list += "<td>" + data.name + "</td>";
+        list += "<td> City : " +data.address.city + "<br> Adress : " + data.address.number + data.address.street + "</td>";
+        list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier </button>";
+        list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_cinema("+JSON.stringify(data.id)+")> Supprimer </button></td>";
+        list += "</tr>";
+        $("#my-list").append(list);
+        document.getElementById("title").value = data.name;
+        document.getElementById("city").value = data.address.city;
+        document.getElementById("number").value = data.address.number;
+        document.getElementById("street").value = data.address.street;
+        document.getElementById("zip").value = data.address.zip;
+    }
+
+</script>
+</html>

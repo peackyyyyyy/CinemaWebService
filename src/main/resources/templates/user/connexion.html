@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <title>MONCINE</title> 
+        <meta http-equiv="content.type" content="text/html"; charset="UTF-8">
+        <script src="https://unpkg.com/htmlincludejs"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="http://localhost:8080/admin">Moncine</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/admin/cinemas/">Cinemas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/admin/films/">Films</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
+                </li>
+            </ul>
+            <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/admin" role="button">Sign in</a>
+        </div>                 
+    </nav>
+    <body>
+        <h1 class="display-3 text-center text-info">Connexion</h1>
+	<form method="post">
+        <div class="form-group p-3 w-25 mx-auto">
+          <label for="inputid">Identifiant</label>
+          <input type="text" class="form-control" name="inputid" placeholder="112" name="inputid">
+        </div>
+        <div class="form-group p-3 w-25 mx-auto">
+          <label for="inputPassword1">Mot de passe</label>
+          <input type="password" class="form-control" name="inputPassword1" placeholder="Mot de passe">
+        </div>
+      <button type="submit" class="btn btn-primary mx-auto" name="submit">Connexion</button>
+    </form>
+    <a class="btn btn-outline-secondary me-auto pull-right m-2" href="account.html" role="button">Account</a>
+    </body>
+</html>

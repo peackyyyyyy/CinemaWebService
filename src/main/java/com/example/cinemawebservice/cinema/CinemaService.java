@@ -3,22 +3,25 @@ package com.example.cinemawebservice.cinema;
 import business.Address;
 import business.Cinema;
 import business.Film;
-import com.example.cinemawebservice.film.FilmRepository;
+import com.mongodb.client.DistinctIterable;
+import com.mongodb.client.MongoCursor;
 import lombok.AllArgsConstructor;
-import org.springframework.data.annotation.Id;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.util.*;
-import java.util.function.Consumer;
 
 @AllArgsConstructor
 @Service
 public class CinemaService {
 
+    @Autowired
+    MongoTemplate mongoTemplate;
+
     private final CinemaRepository cinemaRepository;
-    private final FilmRepository filmRepository;
 
     @GetMapping
     public List<Cinema> get_all_cinemas(){
@@ -31,18 +34,31 @@ public class CinemaService {
     }
 
     @GetMapping
-    public void delete_cinema(Cinema cinema){
-        cinemaRepository.delete(cinema);
+    public Cinema update_cinema(String id, String city, Address address, List<Film> films){
+        return cinemaRepository.save(new Cinema(id, city, address, films));
+    }
+
+    @GetMapping
+    public List<String> get_all_city(){
+        DistinctIterable<String> distinctIterable = mongoTemplate.getCollection("cinema").distinct("address.city", String.class);
+        System.out.println(distinctIterable);
+        List<String> categoryList = new ArrayList<>();
+        MongoCursor<String> cursor = distinctIterable.iterator();
+        while (cursor.hasNext()) {
+            String category = cursor.next();
+            categoryList.add(category);
+        }
+        return categoryList;
+    }
+
+    @GetMapping
+    public void delete_cinema(String id){
+        cinemaRepository.deleteById(id);
     }
 
     @GetMapping
     public Optional<Cinema> get_cinema_by_id(String id){
         return cinemaRepository.findById(id);
-    }
-
-    @GetMapping
-    public List<Cinema> get_cinemas_by_city(String city){
-        return cinemaRepository.findCinemaByCity(city);
     }
 
     @GetMapping
