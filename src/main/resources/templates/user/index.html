@@ -5,6 +5,7 @@
         <meta http-equiv="content.type" content="text/html"; charset="UTF-8">
         <script src="https://unpkg.com/htmlincludejs"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
         <style>
             a,
@@ -31,7 +32,7 @@
             html,
             body {
                 height: 100%;
-                background-color: #333;
+            background-image: url('https://www.meta-media.fr/files/2019/06/apps.55787.9007199266246365.687a10a8-4c4a-4a47-8ec5-a95f70d8852d.jpg');
             }
 
             body {
@@ -91,27 +92,30 @@
         </style>
 
     </head>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="http://localhost:8080">Moncine</a>
+                    <a class="nav-link active" aria-current="page" href="http://localhost:8080/admin">Moncine</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/cinemas/">Cinemas</a>
+                    <a class="nav-link" href="http://localhost:8080/admin/cinemas/">Cinemas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/films/">Films</a>
+                    <a class="nav-link" href="http://localhost:8080/admin/films/">Films</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/apropos/">À propos</a>
+                    <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
                 </li>
             </ul>
-            <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/logout" role="button">Log out</a>
+            <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/admin" role="button">Sign in</a>
         </div>
     </nav>
 
     <body class="text-center">
+
+    <div id="main-bar"></div>
 
         <main role="main" class="inner cover">
             <h1 id="heading" >Bienvenue sur MonCine</h1>
