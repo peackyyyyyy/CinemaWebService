@@ -175,8 +175,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="ajouter" class="btn btn-primary" onclick="">Ajouter</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="load_films()">Close</button>
+        <button type="button" id="ajouter" class="btn btn-primary">Ajouter</button>
       </div>
     </div>
   </div>
@@ -296,6 +296,7 @@
             .then(data => { // Your code for handling the data you get from the API
               console.log(data)
               renderFilms(data);
+              $("#filtreModal").modal('hide');
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
               console.log('There has been a problem with your fetch operation: ', error.message);

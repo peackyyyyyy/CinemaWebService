@@ -57,7 +57,7 @@ public class CinemaController {
         Cinema cinema = null;
         System.out.println(map);
         try {
-            cinema = cinemaService.add_new_cinema(map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
+            cinema = cinemaService.update_cinema(map.get("cinema").getId(), map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
         }
         catch (Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();
@@ -153,7 +153,7 @@ public class CinemaController {
         System.out.println(map);
         try {
             filmService.delete_film(map.get("film").getId());
-            film = filmService.add_new_film(map.get("film").getTitle(), map.get("film").getDuration(), map.get("film").getLanguage(),
+            film = filmService.update_film(map.get("film").getId(), map.get("film").getTitle(), map.get("film").getDuration(), map.get("film").getLanguage(),
                     map.get("film").getSubtitles(), map.get("film").getDirector(), map.get("film").getMain_actor(), map.get("film").getMin_age(),
                     map.get("film").getStart(), map.get("film").getEnd());
         }
