@@ -5,13 +5,97 @@
         <meta http-equiv="content.type" content="text/html"; charset="UTF-8">
         <script src="https://unpkg.com/htmlincludejs"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css">
+
+        <style>
+            a,
+            a:focus,
+            a:hover {
+                color: #fff;
+            }
+
+            /* Custom default button */
+            .btn-secondary,
+            .btn-secondary:hover,
+            .btn-secondary:focus {
+                color: #333;
+                text-shadow: none; /* Prevent inheritance from `body` */
+                background-color: #fff;
+                border: .05rem solid #fff;
+            }
+
+
+            /*
+             * Base structure
+             */
+
+            html,
+            body {
+                height: 100%;
+                background-color: #333;
+            }
+
+            body {
+                color: #fff;
+            }
+
+            .cover-container {
+                max-width: 42em;
+            }
+
+            #heading  {
+                margin-top: 300px;
+            }
+
+
+            /*
+             * Header
+             */
+            .masthead {
+                margin-bottom: 2rem;
+            }
+
+            .masthead-brand {
+                margin-bottom: 0;
+            }
+
+
+            @media (min-width: 48em) {
+                .masthead-brand {
+                    float: left;
+                }
+                .nav-masthead {
+                    float: right;
+                }
+            }
+
+
+            /*
+             * Cover
+             */
+            .cover {
+                padding: 0 1.5rem;
+            }
+            .cover .btn-lg {
+                padding: .75rem 1.25rem;
+                font-weight: 700;
+            }
+
+
+            /*
+             * Footer
+             */
+            .mastfoot {
+                color: rgba(255, 255, 255, .5);
+            }
+
+        </style>
+
     </head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="http://localhost:8080/admin">Moncine</a>
+                    <a class="nav-link active" aria-current="page" href="http://localhost:8080">Moncine</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/cinemas/">Cinemas</a>
@@ -23,10 +107,35 @@
                     <a class="nav-link" href="http://localhost:8080/apropos/">À propos</a>
                 </li>
             </ul>
-            <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/admin" role="button">Sign in</a>
-        </div>                 
+            <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/logout" role="button">Log out</a>
+        </div>
     </nav>
-    <body>
-        hello
+
+    <body class="text-center">
+
+        <main role="main" class="inner cover">
+            <h1 id="heading" >Bienvenue sur MonCine</h1>
+            <p class="lead">Le site de référence du cinéma ! <br>Découvrez notre recherche d'horaires de films par cinéma</p>
+            <p class="lead">
+                <a href="http://localhost:8080/cinemas/" class="btn btn-lg btn-secondary">Découvrir</a>
+            </p>
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p></p>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="jquery-slim.min.js"><\/script>')</script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+
     </body>
 </html>

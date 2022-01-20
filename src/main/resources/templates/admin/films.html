@@ -3,11 +3,48 @@
 <head>
   <title>Profil</title>
   <script src="http://code.jquery.com/jquery.min.js"></script>
-
   <meta http-equiv="content.type" content="text/html" charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <style>
+
+    .multipleSelection {
+      width: 200px;
+      background-color: #ffffff;
+    }
+
+    .selectBox {
+      position: relative;
+    }
+
+    .selectBox select {
+      width: 100%;
+      font-weight: bold;
+    }
+
+    .overSelect {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    #checkBoxes {
+      display: none;
+      border: 1px #ffffff solid;
+    }
+
+    #checkBoxes label {
+      display: block;
+    }
+
+    #checkBoxes label:hover {
+      background-color: #ebebeb;
+    }
+  </style>
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -80,25 +117,55 @@
 
             </div>
 
-
             <div class="form-group col-md-6">
-              <label for="languages">Language</label>
-                  <select id="languages" multiple="multiple" class="form-control" >
-                    <optgroup>
-                    <option value="EN">EN</option>
-                    <option value="FR">FR</option>
-                    <option value="ES">ES</option>
-                    <option value="IT">IT</option>
-                    </optgroup>
-                  </select>
+
+              <label>Languages</label>
+
+              <div class="multipleSelection">
+                <div class="selectBox"
+                     onclick="showCheckboxes()">
+                  <options class="form-control">Select languages</options>
+                  <div class="overSelect"></div>
+                </div>
+
+                <div id="checkBoxes" class="form-control">
+                  <label for="fr" >
+                    <input type="checkbox" id="fr" />
+                    FR
+                  </label>
+
+                  <label for="en">
+                    <input type="checkbox" id="en" value="en"/>
+                    EN
+                  </label>
+                  <label for="it">
+                    <input type="checkbox" id="it" value="fr"/>
+                    IT
+                  </label>
+                  <label for="es">
+                    <input type="checkbox" id="es" value="es"/>
+                    ES
+                  </label>
+                </div>
+              </div>
             </div>
 
-            <script id="example">
-              $('#languages').multiselect({
-                enableClickableOptGroups: true
-              });
-            </script>
+            <script>
+              var show = true;
 
+              function showCheckboxes() {
+                var checkboxes =
+                        document.getElementById("checkBoxes");
+
+                if (show) {
+                  checkboxes.style.display = "block";
+                  show = false;
+                } else {
+                  checkboxes.style.display = "none";
+                  show = true;
+                }
+              }
+            </script>
 
             <div class="form-group col-md-6">
 
