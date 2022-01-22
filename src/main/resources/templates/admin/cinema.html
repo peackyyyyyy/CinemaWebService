@@ -202,20 +202,31 @@
             });
     }
 
-    function return_value(data){
-        return data;
-    }
 
-    function load_seances(id_cinema, id_film) {
+    async function load_seances(id_cinema, id_film) {
         const url = 'http://localhost:8080/api/screening?cinema='+id_cinema+'&film='+id_film;
-        fetch(url)
+        return await fetch(url)
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
-                return_value(data);
+                return data.seances;
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
-                console.log('There has been a problem with your fetch operation: ', error.message);
-            })
+                console.log(error)
+                return null;
+            });
+    }
+
+    function renderSeances(seances){
+        var list_seance = "";
+        seances.forEach((element) => {
+            list_seance += "<td> jour : " + element.day + "<br> hour : ";
+            element.hour.forEach((hour) => {
+                list_seance += hour+" /";
+            });
+            list_seance += "</td>";
+        });
+        list_seance += "</tr>";
+        $("#list-films").append(list_seance);
     }
 
 
@@ -236,25 +247,41 @@
         document.getElementById("street").value = data.address.street;
         document.getElementById("zip").value = data.address.zip;
 
-        var list_seance = "";
-        $.each(data.film, function (index) {
-            var link="http://localhost:8080/admin/films/id=" + data.film[index].id ;
-            list_seance += "<tr class='text-center'>";
-            list_seance += "<td><a href='"+link+"'>" + data.film[index].title + "</a></td>";
-            list_seance += "<td> languages : " +data.film[index].language + "<br> subtitles : " + data.film[index].subtitles + "</td>";
-            list_seance += "<td> runtime :" + data.film[index].duration + "<br> director : " + data.film[index].director + "<br> actors : " + data.film[index].main_actor + "</td>";
-            var seances = load_seances(data.id, data.film[index].id);
-            console.log(seances);
-            $.each(seances, function (index) {
-                list_seance += "<td> jour : " + seances[index].day + "<br> hour : ";
-                $.each(seances[index].hour, function (index) {
-                    list_seance += seances[index].hour[index]+" /";
+        $.each(data.film, async function (index) {
+            let list_film = "";
+            const link = "http://localhost:8080/admin/films/id=" + data.film[index].id;
+            list_film += "<tr class='text-center'>";
+            list_film += "<td><a href='" + link + "'>" + data.film[index].title + "</a></td>";
+            list_film += "<td> languages : " + data.film[index].language + "<br> subtitles : " + data.film[index].subtitles + "</td>";
+            list_film += "<td> runtime :" + data.film[index].duration + "<br> director : " + data.film[index].director + "<br> actors : " + data.film[index].main_actor + "</td>";
+            list_film += "<td>"
+            list_film += "<table id='tab3'>"
+            list_film += "<tbody id='list-seance'>"
+            list_film += "<tr class='text-center'>"
+            list_film += "<th scope='col'>Jour</th>"
+            list_film += "<th scope='col'>Horraires</th>"
+            const url = 'http://localhost:8080/api/screening?cinema='+data.id+'&film='+data.film[index].id;
+            let response = await fetch(url);
+            let screening = await response.json();
+            try {
+                screening.seances.forEach((element) => {
+                    list_film += "<tr class='text-center'>";
+                    list_film += "<td>" + element.day + "</td>";
+                    element.hour.forEach((hour) => {
+                        list_film += "<td>" + hour + "<br>";
+                    });
+                    list_film += "</td>"
+                    list_film += "</tr>"
                 });
-                list_seance += "</td>"
-            });
-            list_seance += "</tr>";
+            }catch (e) { // non-standard
+                console.log(e)
+            }
+            list_film += "</tbody>"
+            list_film += "</table>"
+            list_film += "</td>"
+            list_film += "</tr>"
+            $("#list-films").append(list_film);
         })
-        $("#list-films").append(list_seance);
     }
 
 </script>

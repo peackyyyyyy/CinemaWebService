@@ -69,12 +69,15 @@ public class CinemaWebServiceApplication {
             Cinema cinema18 = new Cinema("18", "UGC Astoria", new Address("31", "Cr Vitton", "69006", "Lyon"), List.of(film1, film2, film3, film4, film8, film9));
             Cinema cinema19 = new Cinema("19", "Pathe Vaise", new Address("43", "rue des Docks", "69009", "Lyon"), List.of(film5, film6, film7, film8, film9, film10));
             Cinema cinema20 = new Cinema("20", "UGC Cine Cite Confluence", new Address("112", "Cr Charlemagne", "69002", "Lyon"), List.of(film4, film5, film8, film9, film10));
-            Screening screening1 = new Screening("1", "1", "1", List.of(new Seance("Lundi", List.of("14h", "16h"))));
+            Screening screening1 = new Screening("1", "1", "1", List.of(new Seance("Lundi", List.of("14h", "16h")), new Seance("Mardi", List.of("14h", "16h"))));
             Screening screening2 = new Screening("2", "1", "2", List.of(new Seance("Mardi", List.of("14h", "16h"))));
             Screening screening3 = new Screening("3", "1", "3", List.of(new Seance("Mercredi", List.of("14h", "16h"))));
             Screening screening4 = new Screening("4", "2", "1", List.of(new Seance("Lundi", List.of("14h", "16h"))));
             Screening screening5 = new Screening("5", "2", "2", List.of(new Seance("Mardi", List.of("14h", "16h"))));
             try {
+                cinemaRepository.deleteAll();
+                filmRepository.deleteAll();
+                screeningRepository.deleteAll();
                 cinemaRepository.insert(List.of(cinema1, cinema2, cinema3, cinema4, cinema5, cinema6, cinema7, cinema8, cinema9, cinema10, cinema11, cinema12, cinema13, cinema14, cinema15, cinema16, cinema17, cinema18, cinema19, cinema20));
                 filmRepository.insert(List.of(film1, film2, film3, film4, film5, film6, film7, film8, film9, film10));
                 screeningRepository.insert(List.of(screening1, screening2, screening3, screening4, screening5));
