@@ -84,6 +84,14 @@ public class CinemaController {
         return modelAndView;
     }
 
+    @RequestMapping(path = "apropos")
+    @GetMapping()
+    public ModelAndView fetchapropostemplate(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user/apropos");
+        return modelAndView;
+    }
+
     @RequestMapping(path = "admin/cinemas/id={id}")
     @ModelAttribute
     @GetMapping()
@@ -128,6 +136,14 @@ public class CinemaController {
     public ModelAndView fetchadminFilmstemplate(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin/films");
+        return modelAndView;
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping(path = "admin/apropos")
+    public ModelAndView fetchadminapropostemplate(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/apropos");
         return modelAndView;
     }
 
