@@ -32,6 +32,7 @@
     <table id="tab" class="table table-hover p-3 w-75 mx-auto">
       <tbody id="my-list">
       <tr class="text-center">
+        <th scope="col" >Affiche</th>
         <th scope="col" >Title</th>
         <th scope="col" >Language</th>
         <th scope="col" >Description</th>
@@ -70,6 +71,7 @@
       list += "<tr class=\"text-center\">";
       console.log(data[index].id);
       console.log('http://localhost:8080/films/id=' + data[index].id);
+      list += "<td><img src='../img/"+ data[index].id +".png'></td>";
       list += "<td><a href='"+link+"'>" + data[index].title + "</a></td>";
       list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
       list += "<td> duration :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
