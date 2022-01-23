@@ -1,8 +1,6 @@
 package com.example.cinemawebservice.cinema;
 
-import business.Cinema;
-import business.Film;
-import org.springframework.data.annotation.Id;
+import com.example.cinemawebservice.business.Cinema;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

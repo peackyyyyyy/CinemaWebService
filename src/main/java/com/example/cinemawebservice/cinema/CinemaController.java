@@ -1,7 +1,7 @@
 package com.example.cinemawebservice.cinema;
 
-import business.Cinema;
-import business.Film;
+import com.example.cinemawebservice.business.Cinema;
+import com.example.cinemawebservice.business.Film;
 import com.example.cinemawebservice.film.FilmService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

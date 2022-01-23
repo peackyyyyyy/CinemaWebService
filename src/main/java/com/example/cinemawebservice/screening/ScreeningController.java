@@ -1,17 +1,13 @@
 package com.example.cinemawebservice.screening;
 
-import business.Cinema;
-import business.Screening;
-import business.Seance;
+import com.example.cinemawebservice.business.Screening;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor

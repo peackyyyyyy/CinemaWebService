@@ -1,7 +1,7 @@
 package com.example.cinemawebservice.screening;
 
-import business.Screening;
-import business.Seance;
+import com.example.cinemawebservice.business.Screening;
+import com.example.cinemawebservice.business.Seance;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

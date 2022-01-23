@@ -1,8 +1,6 @@
 package com.example.cinemawebservice.film;
 
-import business.Address;
-import business.Cinema;
-import business.Film;
+import com.example.cinemawebservice.business.Film;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;

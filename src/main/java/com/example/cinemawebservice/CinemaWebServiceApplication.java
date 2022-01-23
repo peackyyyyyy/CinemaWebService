@@ -1,10 +1,10 @@
 package com.example.cinemawebservice;
 
 import business.*;
+import com.example.cinemawebservice.business.*;
 import com.example.cinemawebservice.cinema.CinemaRepository;
 import com.example.cinemawebservice.film.FilmRepository;
 import com.example.cinemawebservice.screening.ScreeningRepository;
-import com.example.cinemawebservice.screening.ScreeningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

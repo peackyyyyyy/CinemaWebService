@@ -1,4 +1,4 @@
-package business;
+package com.example.cinemawebservice.business;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

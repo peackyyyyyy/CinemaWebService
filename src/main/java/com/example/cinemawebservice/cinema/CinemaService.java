@@ -1,8 +1,8 @@
 package com.example.cinemawebservice.cinema;
 
-import business.Address;
-import business.Cinema;
-import business.Film;
+import com.example.cinemawebservice.business.Address;
+import com.example.cinemawebservice.business.Cinema;
+import com.example.cinemawebservice.business.Film;
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.MongoCursor;
 import lombok.AllArgsConstructor;

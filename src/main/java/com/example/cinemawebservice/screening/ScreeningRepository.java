@@ -1,11 +1,9 @@
 package com.example.cinemawebservice.screening;
 
-import business.Screening;
+import com.example.cinemawebservice.business.Screening;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-
-import java.util.List;
 
 public interface ScreeningRepository extends MongoRepository<Screening, String> {
 
