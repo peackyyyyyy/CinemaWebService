@@ -32,7 +32,6 @@ public class ScreeningController {
     public ResponseEntity<String> add_screening(@RequestBody @NotNull Map<String, Screening> map){
         System.out.println(map);
         Screening screening = screeningService.add_seance(map.get("screening").getId_cinema(), map.get("screening").getId_film(), map.get("screening").getSeances());
-        System.out.println(screening);
         return ResponseEntity.ok().body("http://localhost:8080/admin/cinemas/id="+screening.getId_cinema());
     }
 
