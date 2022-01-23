@@ -44,9 +44,114 @@
         <th scope="col" >Language</th>
         <th scope="col">Description</th>
         <th scope="col">Séances</th>
+        <th scope="col">Modifications</th>
     </tr>
     </tbody>
 </table>
+<div class="modal fade" id="seanceModal" tabindex="-1" role="dialog" aria-labelledby="seanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="seanceModalLabel">Modifier Seance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="screening_id"></div>
+            <div id="film_id"></div>
+            <div id="cinema_id"></div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group col-md-6">
+
+                        <label for="jour">Jour</label>
+
+                        <select name="jour" class="form-control" id="jour">
+
+                            <option value="Lundi">Lundi</option>
+
+                            <option value="Mardi">Mardi</option>
+
+                            <option value="Mercredi">Mercredi</option>
+
+                            <option value="Jeudi">Jeudi</option>
+
+                            <option value="Vendredi">Vendredi</option>
+
+                            <option value="Samedi">Samedi</option>
+
+                            <option value="Dimanche">Dimanche</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label for="heure">Heure</label>
+
+                        <select name="heure" class="form-control" id="heure">
+
+                            <option value="12h">12h</option>
+
+                            <option value="14h">14h</option>
+
+                            <option value="16h">16h</option>
+
+                            <option value="18h">18h</option>
+
+                            <option value="20h">20h</option>
+
+                            <option value="22h">22h</option>
+
+
+                        </select>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="modifierseance" class="btn btn-primary">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="filmModal" tabindex="-1" role="dialog" aria-labelledby="filmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filmModalLabel">Ajouter Film</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group col-md-6">
+
+                        <label for="titre">Titre</label>
+
+                        <select name="titre" class="form-control" id="titre">
+
+                        </select>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="ajouterfilm" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -116,6 +221,101 @@
 
 
 <script>
+
+    function renderFilms(data){
+        var list_film = "";
+        $("#titre").empty();
+        data.forEach((element) => {
+            list_film += "<option value='"+element.title+"'>"+element.title+"</option>"
+        });
+        $("#titre").append(list_film);
+    }
+
+    function get_all_film_title(){
+        const url = 'http://localhost:8080/api/films';
+        fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+                console.log(data)
+                renderFilms(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+                console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+    }
+
+    $("#ajouterfilm").click(function (e) {
+
+        e.preventDefault();
+        var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("=")[1];
+        var title = document.getElementById("titre").value;
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:8080/admin/cinemas/add_film",
+            crossDomain: true,
+            data: JSON.stringify(
+                {
+                    "id_cinema": id,
+                    "film_title": title
+                }
+            ),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                window.location.href = response
+                alert("Success");
+
+            },
+            error: function (link) {
+                console.log(link)
+                alert("Error : "+link)
+
+            }
+        });
+    });
+
+    $("#modifierseance").click(function (e) {
+
+        e.preventDefault();
+        var id_screening = document.getElementById("screening_id").value;
+        var id_cinema = document.getElementById("cinema_id").value;
+        var id_film = document.getElementById("film_id").value;
+        var jour = document.getElementById("jour").value;
+        var heure = document.getElementById("heure").value;
+        console.log(id_cinema)
+        console.log(id_film)
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:8080/admin/screening/modifie",
+            crossDomain: true,
+            data: JSON.stringify(
+                {
+                    "screening":
+                        {
+                            "id": String(id_screening),
+                            "id_cinema": String(id_cinema),
+                            "id_film": String(id_film),
+                            "seances": [
+                                {
+                                    "day": jour,
+                                    "hour": [heure]
+                                }
+                            ]
+                        }
+                }
+            ),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                window.location.href = response
+                alert("Success");
+
+            },
+            error: function (link) {
+                console.log(link)
+                alert("Error : "+link)
+
+            }
+        });
+    });
 
     $("#modifier").click(function (e) {
 
@@ -187,6 +387,33 @@
 
     }
 
+    function delete_seance(id) {
+
+
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8080/admin/screening/delete",
+            crossDomain: true,
+            data: JSON.stringify(
+                {
+                    "id": String(id)
+                }
+            ),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                window.location.href = response
+                alert("Success");
+
+            },
+            error: function (link) {
+                console.log(link)
+                alert("Error : "+link)
+
+            }
+        });
+
+    }
+
     setInterval(load_cinema(), 5000);
 
     function load_cinema() {
@@ -195,6 +422,7 @@
         fetch(url)
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
+                console.log(data)
                 renderCinemas(data);
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
@@ -230,14 +458,19 @@
     }
 
 
+    function set_up_modal_id(id_film, id_screening){
+        document.getElementById("film_id").value = id_film;
+        document.getElementById("screening_id").value = id_screening;
 
+    }
 
     function renderCinemas(data) {
         var list = "";
         list += "<tr class='text-center'>";
         list += "<td>" + data.name + "</td>";
         list += "<td> City : " +data.address.city + "<br> Adress : " + data.address.number + data.address.street + "</td>";
-        list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier </button>";
+        list += "<td> <button type='button' class='btn btn-primary m-3' data-toggle='modal' data-target='#exampleModal'> Modifier </button>";
+        list += "<button type='button' class='btn btn-primary m-3' data-toggle='modal' onclick=get_all_film_title() data-target='#filmModal'> Ajouter un Film </button>";
         list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_cinema("+JSON.stringify(data.id)+")> Supprimer </button></td>";
         list += "</tr>";
         $("#my-list").append(list);
@@ -246,6 +479,7 @@
         document.getElementById("number").value = data.address.number;
         document.getElementById("street").value = data.address.street;
         document.getElementById("zip").value = data.address.zip;
+        document.getElementById("cinema_id").value = data.id;
 
         $.each(data.film, async function (index) {
             let list_film = "";
@@ -261,9 +495,9 @@
             list_film += "<th scope='col'>Jour</th>"
             list_film += "<th scope='col'>Horraires</th>"
             const url = 'http://localhost:8080/api/screening?cinema='+data.id+'&film='+data.film[index].id;
-            let response = await fetch(url);
-            let screening = await response.json();
             try {
+                let response = await fetch(url);
+                let screening = await response.json();
                 screening.seances.forEach((element) => {
                     list_film += "<tr class='text-center'>";
                     list_film += "<td>" + element.day + "</td>";
@@ -279,8 +513,15 @@
             list_film += "</tbody>"
             list_film += "</table>"
             list_film += "</td>"
+            try {
+                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='set_up_modal_id("+data.film[index].id+","+screening.id+")' data-target='#seanceModal'> Modifier </button>";
+                list_film += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_seance("+JSON.stringify(screening.id)+")> Supprimer </button></td>";
+            }catch (e) { // non-standard
+                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='' data-target='#seanceModal'> Modifier </button></td>";
+            }
             list_film += "</tr>"
             $("#list-films").append(list_film);
+            console.log(list_film);
         })
     }
 

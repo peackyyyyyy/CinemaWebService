@@ -66,6 +66,24 @@ public class CinemaController {
     }
 
     @RolesAllowed({"ADMIN"})
+    @PutMapping(path = "admin/cinemas/add_film")
+    public ResponseEntity<String> add_film_in_cinema(@RequestBody Map<String, String> map, BindingResult errors){
+        if (errors.hasErrors()) {
+            System.out.println(errors);
+        }
+        Cinema cinema = null;
+        try {
+            cinema = cinemaService.add_film_to_cinema(map.get("id_cinema"), map.get("film_title"));
+            System.out.println(cinema);
+        }
+        catch (Exception e){
+            return (ResponseEntity<String>) ResponseEntity.badRequest();
+        }
+        return ResponseEntity.ok().body("http://localhost:8080/admin/cinemas/id="+cinema.getId());
+    }
+
+
+    @RolesAllowed({"ADMIN"})
     @PostMapping(path = "admin/cinemas")
     public ResponseEntity<String> addcinema(@RequestBody Map<String, Cinema> map, BindingResult errors){
         if (errors.hasErrors()) {

@@ -31,6 +31,14 @@ public class ScreeningService {
     }
 
     @GetMapping
+    public Screening update_seance(String id, String id_cinema, String id_film, List<Seance> seances){
+        List<Seance> post_seances = seanceRepository.findById(id).get().getSeances();
+        System.out.println(post_seances);
+        post_seances.addAll(seances);
+        return seanceRepository.save(new Screening(id, id_cinema, id_film, post_seances));
+    }
+
+    @GetMapping
     public Screening delete_seance(String seances){
         seanceRepository.deleteById(seances);
         return null;
