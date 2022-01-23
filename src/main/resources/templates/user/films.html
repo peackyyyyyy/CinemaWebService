@@ -6,166 +6,78 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://unpkg.com/htmlincludejs"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  <!--Police Films-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
-
-  <style>
-
-    #filmtitle{
-      font-family: 'Concert One', cursive;
-    }
-    #titleh1{
-    margin-bottom: 50px;
-  }
-    .container {
-      background-color: white;
-      min-height: calc(100vh - 50px);
-      color: white;
-    }
-
-    .movie-list-container{
-      padding: 0 20px 75px;
-    }
-
-    .movie-list-wrapper{
-      position: relative;
-    }
-
-    .movie-list{
-      display: flex;
-      align-items: center;
-      height: 300px;
-    }
-
-    .movie-list-item{
-      margin-right: 30px;
-      position: relative;
-    }
-
-    .movie-list-item:hover .movie-list-item-img{
-      transform: scale(1.2);
-      margin: 0 15px;
-      opacity: 0.3;
-    }
-
-    .movie-list-item:hover .movie-list-item-title,
-    .movie-list-item:hover .movie-list-item-button {
-      opacity: 1;
-    }
-
-    .movie-list-item-img{
-      transition: all 0.4s ease-in-out;
-      width: 270px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 15px;
-
-    }
-
-    .movie-list-item-title{
-      background-color: black;
-      padding: 0 10px;
-      font-size : 32px;
-      font-weight: bold;
-      position: absolute;
-    }
-
-    .movie-list-item-button{
-      padding: 10px;
-      background-color: white;
-      color: black;
-      border-radius: 50px;
-      outline: none;
-      border: none;
-      cursor : pointer;
-      position : absolute;
-      bottom : 15px;
-      left: 200px;
-    }
-
-    .arrow{
-      font-size: 120px;
-      position : absolute;
-      top: 90px;
-      right: 0;
-      color: lightgray;
-      opacity: .5;
-    }
-
-    </style>
-
-
-
-
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="http://localhost:8080/admin">Moncine</a>
+        <a class="nav-link active" aria-current="page" href="http://localhost:8080/">Moncine</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:8080/admin/cinemas/">Cinemas</a>
+        <a class="nav-link" href="http://localhost:8080/cinemas/">Cinemas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:8080/admin/films/">Films</a>
+        <a class="nav-link" href="http://localhost:8080/films/">Films</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
+        <a class="nav-link" href="http://localhost:8080/apropos/">À propos</a>
       </li>
     </ul>
     <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/admin" role="button">Sign in</a>
   </div>
 </nav>
 <body>
-
-
-  <h1 class="display-3 text-center text-info" id="filmtitle">Films</h1>
-
-  <!-- <div class="container">
-    <div class="content-container"> -->
-      <div class="movie-list-container">
-        <h1 class="movie-list-title" id="titleh1">En ce moment</h1>
-        <div class="movie-list-wrapper">
-          <div class="movie-list">
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://images-na.ssl-images-amazon.com/images/I/919kXtR9XjL.jpg" alt="">
-              <!--<span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p>-->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://m.media-amazon.com/images/I/81yNUXs701L._AC_SY606_.jpg" alt="">
-              <!-- <span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p> -->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://fr.web.img5.acsta.net/pictures/14/08/04/15/09/405662.jpg" alt="">
-              <!-- <span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p>-->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://images-na.ssl-images-amazon.com/images/I/919kXtR9XjL.jpg" alt="">
-              <!-- <span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p>-->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
-            <div class="movie-list-item">
-              <img class="movie-list-item-img" src="https://images-na.ssl-images-amazon.com/images/I/919kXtR9XjL.jpg" alt="">
-              <!-- <span class="movie-list-item-title">LaLaLand</span>
-              <p class="movie-list-item-desc">description</p>-->
-              <button class="movie-list-item-button">Voir</button>
-            </div>
-
-          </div>
-        </div>
+  <h1 class="display-3 text-center text-info">Films</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_city()">Filtre</button>
+      </div>
     </div>
+  </div>
 
+  <div class="modal fade" id="filtreModal" tabindex="-1" role="dialog" aria-labelledby="filtreModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filtreModalLabel">Filtre</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+
+            <div class="form-row p-3">
+
+              <div class="form-group col-md-6">
+
+                <label for="languages_filter">Languages</label>
+                <select class="form-control" id="languages_filter">
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+
+                <label for="subtitles_filter">Subtitles</label>
+                <select class="form-control" id="subtitles_filter">
+                </select>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="filtrer" class="btn btn-primary" onclick="filter_films()">Appliquer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div>
     <table id="tab" class="table table-hover p-3 w-75 mx-auto">
       <tbody id="my-list">
       <tr class="text-center">
@@ -180,10 +92,48 @@
 
 
 <script>
+  function renderCity(data){
+    $("#languages_filter").empty();
+    var list = "";
+    $.each(data, function (index) {
+      list += "<option value="+data[index]+">"+data[index]+"</option>"
+    })
+    $("#languages_filter").append(list);
+  }
+  function load_city(){
+    const url = 'http://localhost:8080/api/languages';
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data);
+              //$("#filtreModal .close").click();
+              $("#my-list").empty();
+              renderCity(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
 
-
+  function filter_films() {
+    var url = 'http://localhost:8080/api/cinemas?';
+    var city = document.getElementById("languages_filter").value;
+    url += 'city='+city
+    console.log(url)
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data)
+              renderCinemas(data);
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
 
   setInterval(load_films(), 5000);
+
+
 
   function load_films() {
     const url = 'http://localhost:8080/api/films';
@@ -192,6 +142,7 @@
             .then(data => { // Your code for handling the data you get from the API
               console.log(data)
               renderFilms(data);
+              $("#filtreModal").modal('hide');
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
               console.log('There has been a problem with your fetch operation: ', error.message);
@@ -204,12 +155,10 @@
 
     $.each(data, function (index) {
       var link="http://localhost:8080/films/id=" + data[index].id ;
-      list += "<tr class=\"text-center\">";
-      console.log(data[index].id);
-      console.log('http://localhost:8080/films/id=' + data[index].id);
+      list += "<tr class='text-center'>";
       list += "<td><a href='"+link+"'>" + data[index].title + "</a></td>";
       list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
-      list += "<td> duration :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
+      list += "<td> runtime :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
       list += "</tr>";
     })
     $("#my-list").append(list);

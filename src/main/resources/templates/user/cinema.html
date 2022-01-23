@@ -11,16 +11,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="http://localhost:8080/admin">Moncine</a>
+                <a class="nav-link active" aria-current="page" href="http://localhost:8080/">Moncine</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:8080/admin/cinemas/">Cinemas</a>
+                <a class="nav-link" href="http://localhost:8080/cinemas/">Cinemas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:8080/admin/films/">Films</a>
+                <a class="nav-link" href="http://localhost:8080/films/">Films</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:8080/admin/apropos/">À propos</a>
+                <a class="nav-link" href="http://localhost:8080/apropos/">À propos</a>
             </li>
         </ul>
         <a class="btn btn-outline-secondary me-auto pull-right m-2" href="http://localhost:8080/logout" role="button">Log out</a>
@@ -33,7 +33,6 @@
     <tr class="text-center">
         <th scope="col">Name</th>
         <th scope="col">Adresse</th>
-        <th scope="col">Modification</th>
     </tr>
     </tbody>
 </table>
@@ -47,6 +46,7 @@
     </tr>
     </tbody>
 </table>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -117,76 +117,6 @@
 
 <script>
 
-    $("#modifier").click(function (e) {
-
-        e.preventDefault();
-        var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("=")[1];
-        var title = document.getElementById("title").value;
-        var city = document.getElementById("city").value;
-        var number = document.getElementById("number").value;
-        var street = document.getElementById("street").value;
-        var zip = document.getElementById("zip").value;
-        $.ajax({
-            type: "PUT",
-            url: "http://localhost:8080/admin/cinemas",
-            crossDomain: true,
-            data: JSON.stringify(
-                {
-                    "cinema":
-                        {
-                            "id": id,
-                            "name": title,
-                            "address": {
-                                "number": number,
-                                "street": street,
-                                "zip": zip,
-                                "city": city
-                            },
-                            "films": []
-                        }
-                }
-            ),
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                window.location.href = response
-                alert("Success");
-
-            },
-            error: function (link) {
-                console.log(link)
-                alert("Error : "+link)
-
-            }
-        });
-    });
-
-    function delete_cinema(id) {
-
-
-        $.ajax({
-            type: "DELETE",
-            url: "http://localhost:8080/admin/cinemas",
-            crossDomain: true,
-            data: JSON.stringify(
-                {
-                    "id": String(id)
-                }
-            ),
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                window.location.href = response
-                alert("Success");
-
-            },
-            error: function (link) {
-                console.log(link)
-                alert("Error : "+link)
-
-            }
-        });
-
-    }
-
     setInterval(load_cinema(), 5000);
 
     function load_cinema() {
@@ -237,9 +167,7 @@
         list += "<tr class='text-center'>";
         list += "<td>" + data.name + "</td>";
         list += "<td> City : " +data.address.city + "<br> Adress : " + data.address.number + data.address.street + "</td>";
-        list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier </button>";
-        list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_cinema("+JSON.stringify(data.id)+")> Supprimer </button></td>";
-        list += "</tr>";
+         list += "</tr>";
         $("#my-list").append(list);
         document.getElementById("title").value = data.name;
         document.getElementById("city").value = data.address.city;
@@ -249,7 +177,7 @@
 
         $.each(data.film, async function (index) {
             let list_film = "";
-            const link = "http://localhost:8080/admin/films/id=" + data.film[index].id;
+            const link = "http://localhost:8080/films/id=" + data.film[index].id;
             list_film += "<tr class='text-center'>";
             list_film += "<td><a href='" + link + "'>" + data.film[index].title + "</a></td>";
             list_film += "<td> languages : " + data.film[index].language + "<br> subtitles : " + data.film[index].subtitles + "</td>";
