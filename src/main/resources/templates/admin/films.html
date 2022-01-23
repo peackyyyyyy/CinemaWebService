@@ -236,6 +236,14 @@
 
             </div>
 
+            <div class="form-group col-md-6">
+
+              <label for="image">Affiche</label>
+              <form method="POST" action="/photos/add" enctype="multipart/form-data">
+                Image:<input type="file" name="image" accept="image/*" id="image"/>
+                <input type="submit" value="Upload" />
+              </form>
+            </div>
 
 
           </div>
@@ -316,6 +324,7 @@
     var director = document.getElementById("director").value;
     var actors = document.getElementById("main_actor").value;
     var min_age = document.getElementById("min_age").value;
+    var image = document.getElementById("photo").value;
     $.ajax({
       type: "POST",
       url: "http://localhost:8080/admin/films",
