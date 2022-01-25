@@ -167,7 +167,7 @@
         list += "<tr class='text-center'>";
         list += "<td>" + data.name + "</td>";
         list += "<td> City : " +data.address.city + "<br> Adress : " + data.address.number + data.address.street + "</td>";
-         list += "</tr>";
+        list += "</tr>";
         $("#my-list").append(list);
         document.getElementById("title").value = data.name;
         document.getElementById("city").value = data.address.city;
@@ -181,13 +181,13 @@
             list_film += "<tr class='text-center'>";
             list_film += "<td><a href='" + link + "'>" + data.film[index].title + "</a></td>";
             list_film += "<td> languages : " + data.film[index].language + "<br> subtitles : " + data.film[index].subtitles + "</td>";
-            list_film += "<td> runtime :" + data.film[index].duration + "<br> director : " + data.film[index].director + "<br> actors : " + data.film[index].main_actor + "</td>";
+            list_film += "<td> runtime :" + data.film[index].runtime + "<br> director : " + data.film[index].director + "<br> actors : " + data.film[index].main_actor + "</td>";
             list_film += "<td>"
             list_film += "<table id='tab3'>"
             list_film += "<tbody id='list-seance'>"
             list_film += "<tr class='text-center'>"
             list_film += "<th scope='col'>Jour</th>"
-            list_film += "<th scope='col'>Horraires</th>"
+            list_film += "<th scope='col'>Horaires</th>"
             const url = 'http://localhost:8080/api/screening?cinema='+data.id+'&film='+data.film[index].id;
             let response = await fetch(url);
             let screening = await response.json();

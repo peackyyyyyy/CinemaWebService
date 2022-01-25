@@ -82,13 +82,13 @@ public class FilmService {
 
 
     @GetMapping
-    public Film add_new_film(String title, Integer duration, List<String> language, List<String> subtitles, String director, List<String> main_actors, String age, Date start, Date end){
-        return filmRepository.insert(new Film(null, title, duration, language, subtitles, director, main_actors, age , start, end));
+    public Film add_new_film(String title, Integer runtime, List<String> language, List<String> subtitles, String director, List<String> main_actors, String age, Date start, Date end){
+        return filmRepository.insert(new Film(null, title, runtime, language, subtitles, director, main_actors, age , start, end));
     }
 
     @GetMapping
-    public Film update_film(String id, String title, Integer duration, List<String> language, List<String> subtitles, String director, List<String> main_actors, String age, Date start, Date end){
-        return filmRepository.save(new Film(id, title, duration, language, subtitles, director, main_actors, age , start, end));
+    public Film update_film(String id, String title, Integer runtime, List<String> language, List<String> subtitles, String director, List<String> main_actors, String age, Date start, Date end){
+        return filmRepository.save(new Film(id, title, runtime, language, subtitles, director, main_actors, age , start, end));
     }
 
     @GetMapping
