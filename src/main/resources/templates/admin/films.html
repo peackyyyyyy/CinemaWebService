@@ -33,7 +33,7 @@
   <div class="row">
     <div class="col text-center">
       <button type="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#exampleModal">Ajouter Film</button>
-      <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_city()">Filtre</button>
+      <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_film_language();load_film_main_actor()">Filtre</button>
     </div>
   </div>
 </div>
@@ -61,8 +61,8 @@
 
             <div class="form-group col-md-6">
 
-              <label for="subtitles_filter">Subtitles</label>
-              <select class="form-control" id="subtitles_filter">
+              <label for="main_actor_filter">Main Actors</label>
+              <select class="form-control" id="main_actor_filter">
               </select>
             </div>
 
@@ -189,39 +189,51 @@
 
 
 <script>
-  function renderCity(data){
+  function renderLanguage(data){
     $("#languages_filter").empty();
     var list = "";
+    list += "<option value="+String(null)+"></option>"
     $.each(data, function (index) {
       list += "<option value="+data[index]+">"+data[index]+"</option>"
     })
     $("#languages_filter").append(list);
   }
-  function load_city(){
-    const url = 'http://localhost:8080/api/languages';
+
+  function renderMainActor(data){
+    $("#main_actor_filter").empty();
+    var list = "";
+    list += "<option value="+String(null)+"></option>"
+    $.each(data, function (index) {
+      list += "<option value="+String(data[index])+">"+String(data[index])+"</option>"
+    })
+    $("#main_actor_filter").append(list);
+  }
+  function load_film_language(){
+    const url = 'http://localhost:8080/api/films/language';
     fetch(url)
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
               console.log(data);
               //$("#filtreModal .close").click();
               $("#my-list").empty();
-              renderCity(data);
+              renderLanguage(data);
+
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
               console.log('There has been a problem with your fetch operation: ', error.message);
             });
   }
 
-  function filter_films() {
-    var url = 'http://localhost:8080/api/cinemas?';
-    var city = document.getElementById("languages_filter").value;
-    url += 'city='+city
-    console.log(url)
+  function load_film_main_actor(){
+    const url = 'http://localhost:8080/api/films/main_actor';
     fetch(url)
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
-              console.log(data)
-              renderCinemas(data);
+              console.log(data);
+              //$("#filtreModal .close").click();
+              $("#my-list").empty();
+              renderMainActor(data);
+
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
               console.log('There has been a problem with your fetch operation: ', error.message);
@@ -284,6 +296,34 @@
 
   function load_films() {
     const url = 'http://localhost:8080/api/films';
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data)
+              renderFilms(data);
+              $("#filtreModal").modal('hide');
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
+
+  function filter_films() {
+    var url = 'http://localhost:8080/api/films?';
+    var e = document.getElementById("languages_filter");
+    var language = e.options[e.selectedIndex].text;
+    var e1 = document.getElementById("main_actor_filter");
+    var main_actor = e1.options[e1.selectedIndex].text;
+    if (language !== ""){
+      url += 'language='+language
+      if (main_actor !== ""){
+        url += '&main_actor='+main_actor
+      }
+    }
+    else {
+      url += 'main_actor='+main_actor
+    }
+    console.log(url)
     fetch(url)
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
