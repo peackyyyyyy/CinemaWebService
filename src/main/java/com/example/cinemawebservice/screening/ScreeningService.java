@@ -29,13 +29,13 @@ public class ScreeningService {
 
     @GetMapping
     public Screening add_seance(String id_cinema, String id_film, List<Seance> seances){
-        return seanceRepository.insert(new Screening(null, id_cinema, id_film, seances));
+        Integer randomNum = 1 + (int)(Math.random() * 1000000);
+        return seanceRepository.insert(new Screening(randomNum.toString(), id_cinema, id_film, seances));
     }
 
     @GetMapping
     public Screening update_seance(String id, String id_cinema, String id_film, List<Seance> seances){
         List<Seance> post_seances = seanceRepository.findById(id).get().getSeances();
-        System.out.println(post_seances);
         for (Seance temp1: post_seances){
             if (Objects.equals(temp1.getDay(), seances.get(0).getDay())){
                 if (temp1.getHour().contains(seances.get(0).getHour().get(0))){

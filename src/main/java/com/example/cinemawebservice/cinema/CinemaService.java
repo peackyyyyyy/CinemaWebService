@@ -33,7 +33,8 @@ public class CinemaService {
 
     @GetMapping
     public Cinema add_new_cinema(String city, Address address, List<Film> films){
-        return cinemaRepository.insert(new Cinema(null, city, address, films));
+        Integer randomNum = 1 + (int)(Math.random() * 1000000);
+        return cinemaRepository.insert(new Cinema(randomNum.toString(), city, address, films));
     }
 
     @GetMapping

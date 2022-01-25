@@ -59,13 +59,18 @@
             });
     }
 
+    $("#close").click(function (e) {
+        e.preventDefault();
+        window.location.reload();
+    });
+
 
     function renderFilm(data) {
         var list = "";
         list += "<tr class=\"text-center\">";
         list += "<td>" + data.title + "</td>";
         list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "</td>";
-        list += "<td> runtime : " + data.runtime + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
+        list += "<td> duration :" + data.duration + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
         list += "</tr>";
         $("#my-list").append(list);
     }

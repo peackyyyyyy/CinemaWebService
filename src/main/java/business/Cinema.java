@@ -20,9 +20,6 @@ public class Cinema {
         return id;
     }
 
-    //public String getCity() {
-      //  return city;
-    //}
 
     public String getName(){
         return name;

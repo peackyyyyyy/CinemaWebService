@@ -39,6 +39,7 @@ public class ScreeningController {
     @RequestMapping(path = "admin/screening/modifie")
     @PutMapping()
     public ResponseEntity<String> update_screening(@RequestBody @NotNull Map<String, Screening> map){
+        System.out.println(map);
         Screening screening = screeningService.update_seance(map.get("screening").getId(), map.get("screening").getId_cinema(), map.get("screening").getId_film(), map.get("screening").getSeances());
         System.out.println(screening);
         return ResponseEntity.ok().body("");
@@ -49,7 +50,6 @@ public class ScreeningController {
     @DeleteMapping()
     public ResponseEntity<String> fetchAllCinema(@RequestBody @NotNull Map<String, String> map){
         Screening screening = screeningService.delete_seance(map.get("id"));
-        System.out.println(screening);
         return ResponseEntity.ok().body("");
     }
 

@@ -116,27 +116,21 @@
 
                         <div class="form-group col-md-6">
 
-                            <label for="min_age">Min Age</label>
-
-                            <input type="number" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
-
-                        </div>
-
-                        <div class="form-group col-md-10">
-
                             <label for="main_actor">Main actors</label>
 
                             <input type="text" class="form-control" min=1 name="main_actor" id="main_actor" placeholder="main actors ...">
 
                         </div>
 
-                        <div class="form-group col-md-2">
-                            <label for="main_actor">Add</label>
-                            <button type="button" id="ajoutactors" class="btn btn-primary">Ajouter</button>
+                        <div class="form-group col-md-6">
+
+                            <label for="min_age">Min Age</label>
+
+                            <input type="number" class="form-control" min=1 name="min_age" id="min_age" placeholder="min age ...">
+
                         </div>
 
-                        <div class="form-group col-md-12" id="tblactors">
-                        </div>
+
 
                     </div>
 
@@ -153,23 +147,12 @@
 
 
 <script>
-    var mainactors = new Array();
-    $("#ajoutactors").click(function (e) {
-        if ( document.getElementById("main_actor").value != ""){
-            mainactors.push(document.getElementById("main_actor").value);
-            var actor=String(document.getElementById("main_actor").value);
-            $("#tblactors").append('<button type="button" class="btn btn-secondary" name="supmain_actor" id="'+actor.replace(" ", '_')+'"  onClick="supmainactor(\'' + actor + '\')">'+actor+' X</button>');
-            document.getElementById("main_actor").value = "";
-        }
-    });
-    function supmainactor(actor){
-        const index=mainactors.indexOf(actor);
-        if (index > -1) {
-            mainactors.splice(index, 1);
-            $("#"+actor.replace(" ", '_')).remove();
-        }
 
-    }
+    $("#close").click(function (e) {
+        e.preventDefault();
+        window.location.reload();
+    });
+
     $("#modifier").click(function (e) {
 
         e.preventDefault();
@@ -177,6 +160,7 @@
         var title = document.getElementById("title").value;
         var runtime = document.getElementById("runtime").value;
         var director = document.getElementById("director").value;
+        var actors = document.getElementById("main_actor").value;
         var min_age = document.getElementById("min_age").value;
 
         var subtitles = new Array();
@@ -187,6 +171,9 @@
                 subtitles.push(chks2[i].value);
             }
         }
+        if (subtitles.length > 0) {
+            alert("Selected values: " + subtitles.join(","));
+        }
 
 
         var languages = new Array();
@@ -196,6 +183,9 @@
             if (chks[i].checked) {
                 languages.push(chks[i].value);
             }
+        }
+        if (languages.length > 0) {
+            alert("Selected values: " + languages.join(","));
         }
 
         $.ajax({
@@ -208,7 +198,7 @@
                         {
                             "id": id,
                             "title": title,
-                            "runtime": runtime,
+                            "duration": runtime,
                             "language":
                                 languages
                             ,
@@ -216,9 +206,9 @@
                                 subtitles
                             ,
                             "director": director,
-                            "main_actor":
-                                mainactors
-                            ,
+                            "main_actor": [
+                                actors
+                            ],
                             "min_age": min_age,
                             "start": "1970-01-01T00:00:02.016Z",
                             "end": "1970-01-01T00:00:02.015Z"
@@ -290,23 +280,17 @@
         var list = "";
         list += "<tr class=\"text-center\">";
         list += "<td>" + data.title + "</td>";
-        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "<br> runtime : " + data.runtime + "</td>";
+        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "<br> runtime :" + data.duration + "</td>";
         list += "<td> director : " + data.director + "<br> actors : " + data.main_actor + "<br> Minimum Age: " + data.min_age + "</td>";
         list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier Film </button>";
         list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_film("+JSON.stringify(data.id)+")>Supprimer</button></td>";
         list += "</tr>";
         $("#my-list").append(list);
         document.getElementById("title").value = data.title;
-        document.getElementById("runtime").value = data.runtime;
+        document.getElementById("runtime").value = data.duration;
         document.getElementById("director").value = data.director;
+        document.getElementById("main_actor").value = data.main_actor;
         document.getElementById("min_age").value = data.min_age;
-
-
-        var text3 = data.main_actor+ '';
-        var myArray3 = text3.split(",");
-        myArray3.forEach(element => mainactors.push(element));
-        myArray3.forEach(element => $("#tblactors").append('<button type="button" class="btn btn-secondary" name="supmain_actor" id="'+element.replace(" ", '_')+'"  onClick="supmainactor(\'' + element + '\')">'+element+' X</button>'));
-
         var text = data.language+ '';
         var myArray = text.split(",");
         myArray.forEach(element => document.getElementById(element.toLowerCase()).checked = true);

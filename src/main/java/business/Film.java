@@ -13,7 +13,7 @@ public class Film {
     @Id
     private final String id;
     private final String title;
-    private final Integer runtime;
+    private final Integer duration;
     private final List<String> language;
     private final List<String> subtitles;
     private final String director;
@@ -22,10 +22,10 @@ public class Film {
     private final Date start;
     private final Date end;
 
-    public Film(String id, String title, Integer runtime, List<String> language, List<String> subtitles, String director, List<String> main_actor, String min_age, Date start, Date end){
+    public Film(String id, String title, Integer duration, List<String> language, List<String> subtitles, String director, List<String> main_actor, String min_age, Date start, Date end){
         this.id = id;
         this.title = title;
-        this.runtime = runtime;
+        this.duration = duration;
         this.language = language;
         this.subtitles = subtitles;
         this.director = director;
@@ -44,8 +44,8 @@ public class Film {
         return start;
     }
 
-    public Integer getRuntime() {
-        return runtime;
+    public Integer getDuration() {
+        return duration;
     }
 
     public String getMin_age() {
@@ -81,7 +81,7 @@ public class Film {
         return "Film{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
-                ", runtime=" + runtime +
+                ", duration=" + duration +
                 ", language=" + language +
                 ", subtitles=" + subtitles +
                 ", director='" + director + '\'' +
