@@ -1,6 +1,6 @@
 package com.example.cinemawebservice;
 
-import business.*;
+
 import com.example.cinemawebservice.business.*;
 import com.example.cinemawebservice.cinema.CinemaRepository;
 import com.example.cinemawebservice.film.FilmRepository;
