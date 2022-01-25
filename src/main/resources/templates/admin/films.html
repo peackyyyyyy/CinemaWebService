@@ -150,53 +150,18 @@
 
             <div class="form-group col-md-6">
 
-              <label>Languages</label>
+              <label for="languages">Languages</label>
 
-              <div class="multipleSelection">
-                <div class="selectBox"
-                     onclick="showCheckboxes()">
-                  <options class="form-control">Select languages</options>
-                  <div class="overSelect"></div>
-                </div>
+              <select name="languages" class="form-control" id="languages">
 
-                <div id="checkBoxes" class="form-control">
-                  <label for="fr" >
-                    <input type="checkbox" id="fr" />
-                    FR
-                  </label>
+                <option value="FR">FR</option>
 
-                  <label for="en">
-                    <input type="checkbox" id="en" value="en"/>
-                    EN
-                  </label>
-                  <label for="it">
-                    <input type="checkbox" id="it" value="fr"/>
-                    IT
-                  </label>
-                  <label for="es">
-                    <input type="checkbox" id="es" value="es"/>
-                    ES
-                  </label>
-                </div>
-              </div>
+                <option value="EN">EN</option>
+
+              </select>
+
             </div>
 
-            <script>
-              var show = true;
-
-              function showCheckboxes() {
-                var checkboxes =
-                        document.getElementById("checkBoxes");
-
-                if (show) {
-                  checkboxes.style.display = "block";
-                  show = false;
-                } else {
-                  checkboxes.style.display = "none";
-                  show = true;
-                }
-              }
-            </script>
 
             <div class="form-group col-md-6">
 
@@ -325,7 +290,7 @@
     var director = document.getElementById("director").value;
     var actors = document.getElementById("main_actor").value;
     var min_age = document.getElementById("min_age").value;
-    var image = document.getElementById("photo").value;
+    var image = document.getElementById("image").value;
     $.ajax({
       type: "POST",
       url: "http://localhost:8080/admin/films",
