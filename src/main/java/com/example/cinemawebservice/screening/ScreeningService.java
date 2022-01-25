@@ -34,7 +34,9 @@ public class ScreeningService {
     public Screening update_seance(String id, String id_cinema, String id_film, List<Seance> seances){
         List<Seance> post_seances = seanceRepository.findById(id).get().getSeances();
         System.out.println(post_seances);
-        post_seances.addAll(seances);
+        if (!post_seances.contains(seances.get(0))){
+            post_seances.addAll(seances);
+        }
         return seanceRepository.save(new Screening(id, id_cinema, id_film, post_seances));
     }
 
