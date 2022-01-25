@@ -23,6 +23,8 @@ public class CinemaController {
     @RequestMapping(path = "api/cinemas")
     @GetMapping()
     public List<Cinema> fetchAllCinema(@RequestParam(required = false) List<String> city, @RequestParam(required = false) List<String> titles){
+        System.out.println(city);
+        System.out.println(titles);
         List<Cinema> cinema = cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(titles));
         System.out.println(cinema);
         return cinema;
@@ -141,6 +143,12 @@ public class CinemaController {
     @GetMapping()
     public List<Film> fetchAllFilms(@RequestParam(required = false) List<String> title){
         return filmService.get_films_with_params(Optional.ofNullable(title));
+    }
+
+    @RequestMapping(path = "api/films/titles")
+    @GetMapping()
+    public ResponseEntity<List<String>> fetchAllFilmsTitles(){
+        return ResponseEntity.ok().body(filmService.get_all_film_titles());
     }
 
     @RequestMapping(path = "api/city")
