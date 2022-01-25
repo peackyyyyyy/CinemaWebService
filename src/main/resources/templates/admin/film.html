@@ -68,31 +68,41 @@
 
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" id="tblcheck">
 
-                            <label for="languages">Languages</label>
+                            <label>Languages</label><br>
 
-                            <select name="languages" class="form-control" id="languages">
 
-                                <option value="FR">FR</option>
+                                <input type="checkbox" id="en" name="languages" value="EN">
+                                <label>EN</label>
 
-                                <option value="EN">VO</option>
+                                <input type="checkbox" id="fr" name="languages" value="FR">
+                                <label>FR</label>
 
-                            </select>
+                                <input type="checkbox" id="it" name="languages" value="IT">
+                                <label>IT</label>
+
+                                <input type="checkbox" id="es" name="languages" value="ES">
+                                <label>ES</label>
+
 
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" id="tblcheck2">
 
-                            <label for="subtitles">Subtitles</label>
+                            <label>Subtitles</label><br>
 
-                            <select name="subtitles" class="form-control" id="subtitles">
+                            <input type="checkbox" id="ensub" name="languages" value="EN">
+                            <label>EN</label>
 
-                                <option value="FR">FR</option>
+                            <input type="checkbox" id="frsub" name="languages" value="FR">
+                            <label>FR</label>
 
-                                <option value="EN">VO</option>
+                            <input type="checkbox" id="itsub" name="languages" value="IT">
+                            <label>IT</label>
 
-                            </select>
+                            <input type="checkbox" id="essub" name="languages" value="ES">
+                            <label>ES</label>
 
                         </div>
 
@@ -143,12 +153,35 @@
         e.preventDefault();
         var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("=")[1];
         var title = document.getElementById("title").value;
-        var languages = document.getElementById("languages").value;
-        var subtitles = document.getElementById("subtitles").value;
         var runtime = document.getElementById("runtime").value;
         var director = document.getElementById("director").value;
         var actors = document.getElementById("main_actor").value;
         var min_age = document.getElementById("min_age").value;
+
+        var subtitles = new Array();
+        var chks2 = tblcheck2.getElementsByTagName("INPUT");
+
+        for (var i = 0; i < chks2.length; i++) {
+            if (chks2[i].checked) {
+                subtitles.push(chks2[i].value);
+            }
+        }
+        if (subtitles.length > 0) {
+            alert("Selected values: " + subtitles.join(","));
+        }
+
+
+        var languages = new Array();
+        var chks = tblcheck.getElementsByTagName("INPUT");
+
+        for (var i = 0; i < chks.length; i++) {
+            if (chks[i].checked) {
+                languages.push(chks[i].value);
+            }
+        }
+        if (languages.length > 0) {
+            alert("Selected values: " + languages.join(","));
+        }
 
         $.ajax({
             type: "PUT",
@@ -161,12 +194,12 @@
                             "id": id,
                             "title": title,
                             "duration": runtime,
-                            "language": [
+                            "language":
                                 languages
-                            ],
-                            "subtitles": [
+                            ,
+                            "subtitles":
                                 subtitles
-                            ],
+                            ,
                             "director": director,
                             "main_actor": [
                                 actors
@@ -249,12 +282,18 @@
         list += "</tr>";
         $("#my-list").append(list);
         document.getElementById("title").value = data.title;
-        document.getElementById("languages").value = data.language;
-        document.getElementById("subtitles").value = data.subtitles;
         document.getElementById("runtime").value = data.duration;
         document.getElementById("director").value = data.director;
         document.getElementById("main_actor").value = data.main_actor;
         document.getElementById("min_age").value = data.min_age;
+        var text = data.language+ '';
+        var myArray = text.split(",");
+        myArray.forEach(element => document.getElementById(element.toLowerCase()).checked = true);
+
+        var text2 = data.subtitles+ '';
+        var myArray2 = text2.split(",");
+        myArray2.forEach(element => document.getElementById(element.toLowerCase()+"sub").checked = true);
+
     }
 
 </script>
