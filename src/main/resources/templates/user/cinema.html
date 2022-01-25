@@ -168,8 +168,8 @@
         var list = "";
         list += "<tr class='text-center'>";
         list += "<td>" + data.name + "</td>";
-        list += "<td> City : " +data.address.city + "<br> Adress : " + data.address.number + data.address.street + "</td>";
-         list += "</tr>";
+        list += "<td> City : " +data.address.city + "<br> Adress : <a href='https://www.google.fr/maps/place/"+ data.address.number + "+" + data.address.street + "+" + data.address.zip + "+"  + data.address.city +"'>" +  data.address.number + data.address.street + "</a></td>";
+        list += "</tr>";
         $("#my-list").append(list);
         document.getElementById("title").value = data.name;
         document.getElementById("city").value = data.address.city;
@@ -189,7 +189,7 @@
             list_film += "<tbody id='list-seance'>"
             list_film += "<tr class='text-center'>"
             list_film += "<th scope='col'>Jour</th>"
-            list_film += "<th scope='col'>Horraires</th>"
+            list_film += "<th scope='col'>Horaires</th>"
             const url = 'http://localhost:8080/api/screening?cinema='+data.id+'&film='+data.film[index].id;
             let response = await fetch(url);
             let screening = await response.json();
