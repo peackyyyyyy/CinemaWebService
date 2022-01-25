@@ -32,7 +32,7 @@
 <div class="container">
     <div class="row">
         <div class="col text-center">
-            <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_city()">Filtre</button>
+            <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_city();load_film_title()">Filtre</button>
         </div>
     </div>
 </div>
@@ -55,6 +55,13 @@
 
                             <label for="city_filter">City</label>
                             <select class="form-control" id="city_filter">
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+                            <label for="film_filter">Film</label>
+                            <select class="form-control" id="film_filter">
                             </select>
                         </div>
 
@@ -104,20 +111,76 @@
             });
     }
 
+    function load_film_title(){
+        const url = 'http://localhost:8080/api/films/titles';
+        fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+                console.log(data);
+                //$("#filtreModal .close").click();
+                $("#my-list").empty();
+                renderFilmTitle(data);
+
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+                console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+    }
+
     function renderCity(data){
         $("#city_filter").empty();
         var list = "";
+        list += "<option value="+String(null)+"></option>"
         $.each(data, function (index) {
-            list += "<option value="+data[index]+">"+data[index]+"</option>"
+            list += "<option value="+String(data[index])+">"+String(data[index])+"</option>"
         })
         $("#city_filter").append(list);
     }
 
+    function renderFilmTitle(data){
+        $("#film_filter").empty();
+        var list = "";
+        list += "<option value="+String(null)+"></option>"
+        $.each(data, function (index) {
+            list += "<option value="+String(data[index])+">"+String(data[index])+"</option>"
+        })
+        $("#film_filter").append(list);
+    }
+
+
     $("#close").click(function (e) {
         e.preventDefault();
-        window.location.reload();s
+        window.location.reload();
     });
 
+    function filter_cinemas() {
+        var url = 'http://localhost:8080/api/cinemas?';
+        var e = document.getElementById("city_filter");
+        var city = e.options[e.selectedIndex].text;
+        var e1 = document.getElementById("film_filter");
+        var film = e1.options[e1.selectedIndex].text;
+        console.log(film)
+        if (city !== ""){
+            url += 'city='+city
+            if (film !== ""){
+                url += '&titles='+film
+            }
+        }
+        else {
+            url += 'titles='+String(film)
+        }
+        console.log(url)
+        fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+                console.log(data)
+                renderCinemas(data);
+                $("#filtreModal").modal('hide');
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+                console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+    }
 
     function load_cinemas() {
         const url = 'http://localhost:8080/api/cinemas';
@@ -126,22 +189,6 @@
             .then(data => { // Your code for handling the data you get from the API
                 console.log(data)
                 renderCinemas(data);
-            })
-            .catch(function (error) { // This is where you run code if the server returns any errors
-                console.log('There has been a problem with your fetch operation: ', error.message);
-            });
-    }
-
-    function filter_cinemas() {
-        var url = 'http://localhost:8080/api/cinemas?';
-        var city = document.getElementById("city_filter").value;
-        url += 'city='+city
-        fetch(url)
-            .then(resp => resp.json())
-            .then(data => { // Your code for handling the data you get from the API
-                console.log(data)
-                renderCinemas(data);
-                $("#filtreModal").modal('hide');
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
                 console.log('There has been a problem with your fetch operation: ', error.message);

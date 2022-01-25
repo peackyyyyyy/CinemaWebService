@@ -23,9 +23,17 @@ public class CinemaController {
     @RequestMapping(path = "api/cinemas")
     @GetMapping()
     public List<Cinema> fetchAllCinema(@RequestParam(required = false) List<String> city, @RequestParam(required = false) List<String> titles){
-        List<Cinema> cinema = cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(titles));
-        System.out.println(cinema);
-        return cinema;
+        return cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(titles));
+    }
+
+    @RequestMapping(path = "api/films")
+    @GetMapping()
+    public List<Film> fetchAllFilms(@RequestParam(required = false) String language, @RequestParam(required = false) String main_actor){
+        System.out.println(language);
+        System.out.println(main_actor);
+        List<Film> films = filmService.get_films_with_params(Optional.ofNullable(language), Optional.ofNullable(main_actor));
+        System.out.println(films);
+        return films;
     }
 
     @RolesAllowed({"ADMIN"})
@@ -137,10 +145,22 @@ public class CinemaController {
         return cinemaService.get_cinema_by_id(id);
     }
 
-    @RequestMapping(path = "api/films")
+    @RequestMapping(path = "api/films/titles")
     @GetMapping()
-    public List<Film> fetchAllFilms(@RequestParam(required = false) List<String> title){
-        return filmService.get_films_with_params(Optional.ofNullable(title));
+    public ResponseEntity<List<String>> fetchAllFilmsTitles(){
+        return ResponseEntity.ok().body(filmService.get_all_film_titles());
+    }
+
+    @RequestMapping(path = "api/films/language")
+    @GetMapping()
+    public ResponseEntity<List<String>> fetchAllFilmsLanguage(){
+        return ResponseEntity.ok().body(filmService.get_all_film_language());
+    }
+
+    @RequestMapping(path = "api/films/main_actor")
+    @GetMapping()
+    public ResponseEntity<List<String>> fetchAllFilmsMain_actor(){
+        return ResponseEntity.ok().body(filmService.get_all_film_main_actor());
     }
 
     @RequestMapping(path = "api/city")

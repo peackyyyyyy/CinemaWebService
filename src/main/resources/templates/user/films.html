@@ -4,7 +4,7 @@
   <title>Profil</title>
   <meta http-equiv="content.type" content="text/html" charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://unpkg.com/htmlincludejs"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +31,7 @@
   <div class="container">
     <div class="row">
       <div class="col text-center">
-        <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_city()">Filtre</button>
+        <button type="button" class="btn btn-secondary m-3" data-toggle="modal" data-target="#filtreModal" onclick="load_film_language();load_film_main_actor()">Filtre</button>
       </div>
     </div>
   </div>
@@ -59,8 +59,8 @@
 
               <div class="form-group col-md-6">
 
-                <label for="subtitles_filter">Subtitles</label>
-                <select class="form-control" id="subtitles_filter">
+                <label for="main_actor_filter">Main Actors</label>
+                <select class="form-control" id="main_actor_filter">
                 </select>
               </div>
 
@@ -75,6 +75,7 @@
       </div>
     </div>
   </div>
+
 
 
   <div>
@@ -114,24 +115,86 @@
               console.log('There has been a problem with your fetch operation: ', error.message);
             });
   }
+  setInterval(load_films(), 5000);
 
-  function filter_films() {
-    var url = 'http://localhost:8080/api/cinemas?';
-    var city = document.getElementById("languages_filter").value;
-    url += 'city='+city
-    console.log(url)
+  function renderLanguage(data){
+    $("#languages_filter").empty();
+    var list = "";
+    list += "<option value="+String(null)+"></option>"
+    $.each(data, function (index) {
+      list += "<option value="+data[index]+">"+data[index]+"</option>"
+    })
+    $("#languages_filter").append(list);
+  }
+
+  function renderMainActor(data){
+    $("#main_actor_filter").empty();
+    var list = "";
+    list += "<option value="+String(null)+"></option>"
+    $.each(data, function (index) {
+      list += "<option value="+String(data[index])+">"+String(data[index])+"</option>"
+    })
+    $("#main_actor_filter").append(list);
+  }
+  function load_film_language(){
+    const url = 'http://localhost:8080/api/films/language';
     fetch(url)
             .then(resp => resp.json())
             .then(data => { // Your code for handling the data you get from the API
-              console.log(data)
-              renderCinemas(data);
+              console.log(data);
+              //$("#filtreModal .close").click();
+              $("#my-list").empty();
+              renderLanguage(data);
+
             })
             .catch(function (error) { // This is where you run code if the server returns any errors
               console.log('There has been a problem with your fetch operation: ', error.message);
             });
   }
 
-  setInterval(load_films(), 5000);
+  function load_film_main_actor(){
+    const url = 'http://localhost:8080/api/films/main_actor';
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data);
+              //$("#filtreModal .close").click();
+              $("#my-list").empty();
+              renderMainActor(data);
+
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
+
+  function filter_films() {
+    var url = 'http://localhost:8080/api/films?';
+    var e = document.getElementById("languages_filter");
+    var language = e.options[e.selectedIndex].text;
+    var e1 = document.getElementById("main_actor_filter");
+    var main_actor = e1.options[e1.selectedIndex].text;
+    if (language !== ""){
+      url += 'language='+language
+      if (main_actor !== ""){
+        url += '&main_actor='+main_actor
+      }
+    }
+    else {
+      url += 'main_actor='+main_actor
+    }
+    console.log(url)
+    fetch(url)
+            .then(resp => resp.json())
+            .then(data => { // Your code for handling the data you get from the API
+              console.log(data)
+              renderFilms(data);
+              $("#filtreModal").modal('hide');
+            })
+            .catch(function (error) { // This is where you run code if the server returns any errors
+              console.log('There has been a problem with your fetch operation: ', error.message);
+            });
+  }
 
 
 

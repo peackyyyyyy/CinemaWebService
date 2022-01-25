@@ -350,9 +350,10 @@
 
         e.preventDefault();
         var id_cinema = document.getElementById("cinema_id").value;
-        var id_film = document.getElementById("film_id").value;
+        var id_film = document.getElementById("film_id_2").value;
         var jour = document.getElementById("jour").value;
         var heure = document.getElementById("heure").value;
+        console.log(id_film)
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/admin/screening/add",
@@ -607,7 +608,7 @@
                 list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='set_up_modal_id("+data.film[index].id+","+screening.id+")' data-target='#seanceModal'> Modifier </button>";
                 list_film += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_seance("+screening.id+")> Supprimer les séances</button></td>";
             }catch (e) { // non-standard
-                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='' onclick='set_up_modal_id_2("+data.film[index].id+")' data-target='#seanceaddModal'> Ajouter </button></td>";
+                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='set_up_modal_id_2("+data.film[index].id+")' data-target='#seanceaddModal'> Ajouter </button></td>";
             }
             list_film += "</tr>"
             $("#list-films").append(list_film);
