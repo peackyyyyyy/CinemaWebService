@@ -35,7 +35,6 @@ public class Cinema {
 
     public Cinema(String id, String name, Address address, List<Film> film) {
         this.id = id;
-        //this.city = city;
         this.name = name;
         this.address = address;
         this.film = film;

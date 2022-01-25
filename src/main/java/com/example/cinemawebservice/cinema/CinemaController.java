@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.*;
+import java.util.stream.Stream;
 
 @RestController
 @AllArgsConstructor
@@ -23,16 +24,17 @@ public class CinemaController {
     @RequestMapping(path = "api/cinemas")
     @GetMapping()
     public List<Cinema> fetchAllCinema(@RequestParam(required = false) List<String> city, @RequestParam(required = false) List<String> titles){
-        return cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(titles));
+        List<Cinema> cinemas = cinemaService.get_cinemas_with_params(Optional.ofNullable(city), Optional.ofNullable(titles));
+        cinemas.sort(Comparator.comparing(o -> o.getAddress().getCity()));
+        return cinemas;
+
     }
 
     @RequestMapping(path = "api/films")
     @GetMapping()
     public List<Film> fetchAllFilms(@RequestParam(required = false) String language, @RequestParam(required = false) String main_actor){
-        System.out.println(language);
-        System.out.println(main_actor);
         List<Film> films = filmService.get_films_with_params(Optional.ofNullable(language), Optional.ofNullable(main_actor));
-        System.out.println(films);
+        films.sort(Comparator.comparing(Film::getTitle));
         return films;
     }
 
@@ -147,14 +149,14 @@ public class CinemaController {
 
     @RequestMapping(path = "api/films/titles")
     @GetMapping()
-    public ResponseEntity<List<String>> fetchAllFilmsTitles(){
-        return ResponseEntity.ok().body(filmService.get_all_film_titles());
+    public ResponseEntity<Stream<String>> fetchAllFilmsTitles(){
+        return ResponseEntity.ok().body(filmService.get_all_film_titles().stream().sorted());
     }
 
     @RequestMapping(path = "api/films/language")
     @GetMapping()
-    public ResponseEntity<List<String>> fetchAllFilmsLanguage(){
-        return ResponseEntity.ok().body(filmService.get_all_film_language());
+    public ResponseEntity<Stream<String>>  fetchAllFilmsLanguage(){
+        return ResponseEntity.ok().body(filmService.get_all_film_language().stream().sorted());
     }
 
     @RequestMapping(path = "api/films/main_actor")
@@ -165,8 +167,8 @@ public class CinemaController {
 
     @RequestMapping(path = "api/city")
     @GetMapping()
-    public ResponseEntity<List<String>>  fetchAllCity(){
-        return ResponseEntity.ok().body(cinemaService.get_all_city());
+    public ResponseEntity<Stream<String>>   fetchAllCity(){
+        return ResponseEntity.ok().body(cinemaService.get_all_city().stream().sorted());
     }
 
     @RolesAllowed({"ADMIN"})
