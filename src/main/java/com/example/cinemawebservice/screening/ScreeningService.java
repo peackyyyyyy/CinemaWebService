@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @Service
@@ -31,8 +33,30 @@ public class ScreeningService {
     }
 
     @GetMapping
-    public Screening delete_seance(String seances){
-        seanceRepository.deleteById(seances);
+    public Screening update_seance(String id, String id_cinema, String id_film, List<Seance> seances){
+        List<Seance> post_seances = seanceRepository.findById(id).get().getSeances();
+        System.out.println(post_seances);
+        for (Seance temp1: post_seances){
+            if (Objects.equals(temp1.getDay(), seances.get(0).getDay())){
+                if (temp1.getHour().contains(seances.get(0).getHour().get(0))){
+                    return null;
+                }
+                else {
+                    temp1.getHour().add(seances.get(0).getHour().get(0));
+                    return seanceRepository.save(new Screening(id, id_cinema, id_film, post_seances));
+                }
+            }
+            else {
+                post_seances.addAll(seances);
+                return seanceRepository.save(new Screening(id, id_cinema, id_film, post_seances));
+            }
+        }
         return null;
+    }
+
+    @GetMapping
+    public Screening delete_seance(String seances){
+        Screening screening = seanceRepository.findById(seances).get();
+        return seanceRepository.save(new Screening(screening.getId(), screening.getId_cinema(), screening.getId_film(), null));
     }
 }

@@ -1,8 +1,9 @@
 package com.example.cinemawebservice.cinema;
 
-import com.example.cinemawebservice.business.Address;
-import com.example.cinemawebservice.business.Cinema;
-import com.example.cinemawebservice.business.Film;
+import business.Address;
+import business.Cinema;
+import business.Film;
+import com.example.cinemawebservice.film.FilmRepository;
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.MongoCursor;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,8 @@ public class CinemaService {
     MongoTemplate mongoTemplate;
 
     private final CinemaRepository cinemaRepository;
+
+    private final FilmRepository filmRepository;
 
     @GetMapping
     public List<Cinema> get_all_cinemas(){
@@ -59,6 +62,27 @@ public class CinemaService {
     @GetMapping
     public Optional<Cinema> get_cinema_by_id(String id){
         return cinemaRepository.findById(id);
+    }
+
+    @GetMapping
+    public Cinema add_film_to_cinema(String id_cinema, String film_title){
+        Film film = filmRepository.findoneFilmByTitle(film_title);
+        Optional<Cinema> cinema = cinemaRepository.findById(id_cinema);
+        if (cinema.isPresent()){
+            List<Film> films = cinema.get().getFilm();
+            boolean present = false;
+            for (Film film1: films){
+                if (Objects.equals(film1.getTitle(), film_title)) {
+                    present = true;
+                    break;
+                }
+            }
+            if (!present){
+                cinema.get().getFilm().add(film);
+            }
+            return cinemaRepository.save(cinema.get());
+        }
+        return null;
     }
 
     @GetMapping
