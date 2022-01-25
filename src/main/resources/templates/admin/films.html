@@ -240,6 +240,7 @@
 
               <label for="image">Affiche</label>
               <form method="POST" action="/photos/add" enctype="multipart/form-data">
+                <input type="text" name="title" />
                 <input type="file" name="image" accept="image/*" id="image"/>
                 <input type="submit" value="Upload" />
               </form>
