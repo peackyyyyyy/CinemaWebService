@@ -70,18 +70,24 @@ public class CinemaService {
         Film film = filmRepository.findoneFilmByTitle(film_title);
         Optional<Cinema> cinema = cinemaRepository.findById(id_cinema);
         if (cinema.isPresent()){
-            List<Film> films = cinema.get().getFilm();
-            boolean present = false;
-            for (Film film1: films){
-                if (Objects.equals(film1.getTitle(), film_title)) {
-                    present = true;
-                    break;
+            try {
+                List<Film> films = cinema.get().getFilm();
+                boolean present = false;
+                for (Film film1: films){
+                    if (Objects.equals(film1.getTitle(), film_title)) {
+                        present = true;
+                        break;
+                    }
                 }
+                if (!present){
+                    cinema.get().getFilm().add(film);
+                }
+                return cinemaRepository.save(cinema.get());
             }
-            if (!present){
-                cinema.get().getFilm().add(film);
+            catch (Exception e){
+                cinema.get().setFilm(List.of(film));
+                return cinemaRepository.save(cinema.get());
             }
-            return cinemaRepository.save(cinema.get());
         }
         return null;
     }

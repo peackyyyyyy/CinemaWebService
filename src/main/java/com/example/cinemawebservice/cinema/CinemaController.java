@@ -84,7 +84,6 @@ public class CinemaController {
         Cinema cinema = null;
         try {
             cinema = cinemaService.add_film_to_cinema(map.get("id_cinema"), map.get("film_title"));
-            System.out.println(cinema);
         }
         catch (Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();

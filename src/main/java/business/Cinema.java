@@ -14,11 +14,12 @@ public class Cinema {
     //private final String city;
     private final String name;
     private final Address address;
-    private final List<Film> film;
+    private List<Film> film;
 
     public String getId() {
         return id;
     }
+
 
 
     public String getName(){
@@ -31,6 +32,10 @@ public class Cinema {
 
     public List<Film> getFilm() {
         return film;
+    }
+
+    public void setFilm(List<Film> film) {
+        this.film = film;
     }
 
     public Cinema(String id, String name, Address address, List<Film> film) {
