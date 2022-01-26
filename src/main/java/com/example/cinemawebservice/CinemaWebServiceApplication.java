@@ -35,15 +35,15 @@ public class CinemaWebServiceApplication {
     @Bean
     CommandLineRunner runner(FilmRepository filmRepository){
         return args -> {
-            Film film1 = new Film( "1", "La La Land", 128, List.of("FR, EN"), List.of("FR, EN"), "Damien Chazelle", List.of("Emma Stone", "Ryan Gosling"), "Rated G", new Date(), new Date());
-            Film film2 = new Film( "2", "Baby Driver", 115, List.of("FR, EN, IT, ES"), List.of("FR, EN, IT, ES"), "Edgar Wright", List.of("Ansel Elgort"), "Rated PG-13", new Date(), new Date());
-            Film film3 = new Film( "3", "Les Gardiens de la Galaxie", 122, List.of("FR, EN"), List.of("FR, EN"), "James Gunn", List.of("James Gunn"), "Rated PG", new Date(), new Date());
-            Film film4 = new Film( "4", "Eternals", 157, List.of("FR, EN"), List.of("FR, EN"), "Chloé Zhao", List.of("Angelina Jolie", "Gemma Chan"), "Rated PG", new Date(), new Date());
+            Film film1 = new Film( "1", "La La Land", 128, List.of("FR,EN"), List.of("FR,EN"), "Damien Chazelle", List.of("Emma Stone", "Ryan Gosling"), "Rated G", new Date(), new Date());
+            Film film2 = new Film( "2", "Baby Driver", 115, List.of("FR,EN,IT,ES"), List.of("FR,EN,IT,ES"), "Edgar Wright", List.of("Ansel Elgort"), "Rated PG-13", new Date(), new Date());
+            Film film3 = new Film( "3", "Les Gardiens de la Galaxie", 122, List.of("FR,EN"), List.of("FR,EN"), "James Gunn", List.of("James Gunn"), "Rated PG", new Date(), new Date());
+            Film film4 = new Film( "4", "Eternals", 157, List.of("FR,EN"), List.of("FR,EN"), "Chloé Zhao", List.of("Angelina Jolie", "Gemma Chan"), "Rated PG", new Date(), new Date());
             Film film5 = new Film( "5", "Dune", 125, List.of("FR"), List.of("FR"), "Denis Villeneuve", List.of("Timothée Chalamet"), "Rated PG-13", new Date(), new Date());
-            Film film6 = new Film( "6", "Free Guy", 115, List.of("FR, EN, IT"), List.of("FR, EN, IT"), "Christophe Beck", List.of("Ryan Reynolds"), "Rated PG", new Date(), new Date());
-            Film film7 = new Film( "7", "Jungle Cruise", 127, List.of("FR, EN,ES"), List.of("FR, EN,ES"), "Jaume Collet-Serra", List.of("Dwayne Johnson"), "Rated PG", new Date(), new Date());
-            Film film8 = new Film( "8", "Don't Look UP", 145, List.of("FR, IT, ES"), List.of("FR, IT, ES"), "Adam McKay", List.of("Leonardo DiCaprio", "Jennifer Lawrence"), "Rated PG", new Date(), new Date());
-            Film film9 = new Film( "9", "Ghostbusters: Afterlife", 124, List.of("FR, EN, IT, ES"), List.of("FR, EN, IT, ES"), "Jason Reitman", List.of("Mckenna Grace", "Finn Wolfhard"), "Rated PG", new Date(), new Date());
+            Film film6 = new Film( "6", "Free Guy", 115, List.of("FR,EN,IT"), List.of("FR,EN,IT"), "Christophe Beck", List.of("Ryan Reynolds"), "Rated PG", new Date(), new Date());
+            Film film7 = new Film( "7", "Jungle Cruise", 127, List.of("FR,EN,ES"), List.of("FR,EN,ES"), "Jaume Collet-Serra", List.of("Dwayne Johnson"), "Rated PG", new Date(), new Date());
+            Film film8 = new Film( "8", "Don't Look UP", 145, List.of("FR,IT,ES"), List.of("FR,IT,ES"), "Adam McKay", List.of("Leonardo DiCaprio", "Jennifer Lawrence"), "Rated PG", new Date(), new Date());
+            Film film9 = new Film( "9", "Ghostbusters: Afterlife", 124, List.of("FR,EN,IT,ES"), List.of("FR, EN, IT, ES"), "Jason Reitman", List.of("Mckenna Grace", "Finn Wolfhard"), "Rated PG", new Date(), new Date());
             Film film10 = new Film( "10", "A Quiet Place 2", 97, List.of("FR"), List.of("FR"), "John Krasinski", List.of("Cillian Murphy", "Emily Blunt"), "Rated R", new Date(), new Date());
 
             Cinema cinema1 = new Cinema("1", "UGC Cine Cite Bercy", new Address("2", "Cr Saint-Emilion", "75012", "Paris"), List.of(film1, film2, film3, film4, film5, film6));

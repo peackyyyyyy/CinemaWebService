@@ -165,8 +165,10 @@
     function supmainactor(actor){
         const index=mainactors.indexOf(actor);
         if (index > -1) {
-            mainactors.splice(index, 1);
-            $("#"+actor.replace(" ", '_')).remove();
+            if(mainactors.length>1){
+                mainactors.splice(index, 1);
+                $("#"+actor.replace(" ", '_')).remove();
+            }
         }
 
     }
@@ -208,7 +210,7 @@
                         {
                             "id": id,
                             "title": title,
-                            "runtime": runtime,
+                            "duration": runtime,
                             "language":
                             languages
                             ,
@@ -290,14 +292,14 @@
         var list = "";
         list += "<tr class=\"text-center\">";
         list += "<td>" + data.title + "</td>";
-        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "<br> runtime : " + data.runtime + "</td>";
+        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "<br> runtime : " + data.duration + "</td>";
         list += "<td> director : " + data.director + "<br> actors : " + data.main_actor + "<br> Minimum Age: " + data.min_age + "</td>";
         list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier Film </button>";
         list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_film("+JSON.stringify(data.id)+")>Supprimer</button></td>";
         list += "</tr>";
         $("#my-list").append(list);
         document.getElementById("title").value = data.title;
-        document.getElementById("runtime").value = data.runtime;
+        document.getElementById("runtime").value = data.duration;
         document.getElementById("director").value = data.director;
         document.getElementById("min_age").value = data.min_age;
 

@@ -214,6 +214,16 @@
       document.getElementById("main_actor").value = "";
     }
   });
+  function supmainactor(actor){
+    const index=mainactors.indexOf(actor);
+    if (index > -1) {
+      if(mainactors.length>1){
+        mainactors.splice(index, 1);
+        $("#"+actor.replace(" ", '_')).remove();
+      }
+    }
+
+  }
   function renderLanguage(data){
     $("#languages_filter").empty();
     var list = "";
