@@ -59,4 +59,9 @@ public class ScreeningService {
         Screening screening = seanceRepository.findById(seances).get();
         return seanceRepository.save(new Screening(screening.getId(), screening.getId_cinema(), screening.getId_film(), null));
     }
+
+    @GetMapping
+    public void delete_screening(String screening){
+        seanceRepository.deleteById(screening);
+    }
 }

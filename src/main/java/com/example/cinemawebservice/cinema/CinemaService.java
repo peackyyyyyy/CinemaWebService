@@ -93,6 +93,27 @@ public class CinemaService {
     }
 
     @GetMapping
+    public Cinema delete_film_to_cinema(String id_cinema, String id_film){
+        Optional<Cinema> cinema = cinemaRepository.findById(id_cinema);
+        if (cinema.isPresent()){
+            try {
+                List<Film> films = cinema.get().getFilm();
+                for (Film film: films){
+                    if (Objects.equals(film.getId(), id_film)){
+                        films.remove(film);
+                        break;
+                    }
+                }
+                return cinemaRepository.save(cinema.get());
+            }
+            catch (Exception e){
+                return cinemaRepository.save(cinema.get());
+            }
+        }
+        return null;
+    }
+
+    @GetMapping
     public List<Cinema> get_cinemas_with_params(Optional<List<String>> city, Optional<List<String>> film){
         if (city.isPresent() && film.isEmpty()) {
             return cinemaRepository.findCinemaByCities(city.get());

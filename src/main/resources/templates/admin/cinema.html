@@ -526,6 +526,59 @@
 
     }
 
+    function delete_film_of_cinema(id_cinema, id_film, id_screening) {
+        if (id_screening == null){
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:8080/admin/cinemas/delete_film",
+                crossDomain: true,
+                data: JSON.stringify(
+                    {
+                        "id_cinema": String(id_cinema),
+                        "id_film": String(id_film)
+                    }
+                ),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    window.location.href = response
+                    alert("Success");
+
+                },
+                error: function (link) {
+                    console.log(link)
+                    alert("Error : "+link)
+
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:8080/admin/cinemas/delete_film",
+                crossDomain: true,
+                data: JSON.stringify(
+                    {
+                        "id_cinema": String(id_cinema),
+                        "id_film": String(id_film),
+                        "id_screening": String(id_screening)
+                    }
+                ),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    window.location.href = response
+                    alert("Success");
+
+                },
+                error: function (link) {
+                    console.log(link)
+                    alert("Error : "+link)
+
+                }
+            });
+        }
+
+    }
+
     $("#close").click(function (e) {
         e.preventDefault();
         window.location.reload();
@@ -615,10 +668,12 @@
                 if (screening.seances == null){
                     throw DOMException
                 }
-                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='set_up_modal_id("+data.film[index].id.toString()+","+screening.id.toString()+")' data-target='#seanceModal'> Modifier </button>";
-                list_film += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_seance("+screening.id.toString()+")> Supprimer les séances</button></td>";
+                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='set_up_modal_id("+data.film[index].id+","+screening.id+")' data-target='#seanceModal'> Modifier Séances </button>";
+                list_film += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_seance("+screening.id.toString()+")> Supprimer Séances</button>";
+                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='delete_film_of_cinema("+data.id+","+data.film[index].id+","+screening.id+")'> Supprimer Film du Cinéma</button></td>";
             }catch (e) { // non-standard
-                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='set_up_modal_id_2("+data.film[index].id.toString()+")' data-target='#seanceaddModal'> Ajouter </button></td>";
+                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='set_up_modal_id_2("+data.film[index].id.toString()+")' data-target='#seanceaddModal'> Ajouter Séances</button>";
+                list_film += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' onclick='delete_film_of_cinema("+data.id+","+data.film[index].id+","+null+")'> Supprimer Film du Cinéma</button></td>";
             }
             list_film += "</tr>"
             $("#list-films").append(list_film);

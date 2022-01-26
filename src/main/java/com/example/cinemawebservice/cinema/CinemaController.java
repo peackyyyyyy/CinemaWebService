@@ -3,6 +3,7 @@ package com.example.cinemawebservice.cinema;
 import business.Cinema;
 import business.Film;
 import com.example.cinemawebservice.film.FilmService;
+import com.example.cinemawebservice.screening.ScreeningService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.stream.Stream;
 public class CinemaController {
     private final FilmService filmService;
     private final CinemaService cinemaService;
+    private final ScreeningService screeningService;
 
     @RequestMapping(path = "api/cinemas")
     @GetMapping()
@@ -91,6 +93,28 @@ public class CinemaController {
         return ResponseEntity.ok().body("http://localhost:8080/admin/cinemas/id="+cinema.getId());
     }
 
+    @RolesAllowed({"ADMIN"})
+    @DeleteMapping(path = "admin/cinemas/delete_film")
+    public ResponseEntity<String> delete_film_in_cinema(@RequestBody Map<String, String> map, BindingResult errors){
+        System.out.println(map);
+        if (errors.hasErrors()) {
+            System.out.println(errors);
+        }
+        Cinema cinema = null;
+        try {
+            cinema = cinemaService.delete_film_to_cinema(map.get("id_cinema"), map.get("id_film"));
+            try {
+                screeningService.delete_seance(map.get("id_screening"));
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        catch (Exception e){
+            return (ResponseEntity<String>) ResponseEntity.badRequest();
+        }
+        return ResponseEntity.ok().body("http://localhost:8080/admin/cinemas/id="+cinema.getId());
+    }
 
     @RolesAllowed({"ADMIN"})
     @PostMapping(path = "admin/cinemas")
