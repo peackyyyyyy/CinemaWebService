@@ -289,7 +289,7 @@
         var list = "";
         list += "<tr class='text-center'>";
         list += "<td>" + data.name + "</td>";
-        list += "<td> City : " +data.address.city + "<br> Address : <a href='https://www.google.fr/maps/place/"+ data.address.number + "+" + data.address.street + "+" + data.address.zip + "+"  + data.address.city +"'>" +  data.address.number + data.address.street + "</a></td>";
+        list += "<td> City : " +data.address.city + "<br> Address : <a href='https://www.google.fr/maps/place/"+ data.address.number + "+" + data.address.street + "+" + data.address.zip + "+"  + data.address.city +"'>" +  data.address.number  +" "+ data.address.street + "</a></td>";
         list += "</tr>";
         $("#my-list").append(list);
         document.getElementById("title").value = data.name;
