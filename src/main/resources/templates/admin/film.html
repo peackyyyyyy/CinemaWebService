@@ -68,6 +68,22 @@
 
                         </div>
 
+                        <div class="form-group col-md-6">
+
+                            <label for="start">Start</label>
+
+                            <input type="date" class="form-control" name="start" id="start">
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+                            <label for="end">End</label>
+
+                            <input type="date" class="form-control" name="end" id="end">
+
+                        </div>
+
                         <div class="form-group col-md-6" id="tblcheck">
 
                             <label>Languages</label><br>
@@ -180,6 +196,8 @@
         var runtime = document.getElementById("runtime").value;
         var director = document.getElementById("director").value;
         var min_age = document.getElementById("min_age").value;
+        var start = document.getElementById("start").value;
+        var end = document.getElementById("end").value;
 
         var subtitles = new Array();
         var chks2 = tblcheck2.getElementsByTagName("INPUT");
@@ -222,8 +240,8 @@
                             mainactors
                             ,
                             "min_age": min_age,
-                            "start": "1970-01-01T00:00:02.016Z",
-                            "end": "1970-01-01T00:00:02.015Z"
+                            "start": start,
+                            "end": end
                         }
                 }
             ),
@@ -291,8 +309,8 @@
     function renderFilm(data) {
         var list = "";
         list += "<tr class=\"text-center\">";
-        list += "<td>" + data.title + "</td>";
-        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "<br> runtime : " + data.duration + "</td>";
+        list += "<td>" + data.title + "<br>Start : " + data.start.substr(0, 10) + "<br>End : " + data.end.substr(0, 10) + "</td>";
+        list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "<br> runtime : " + data.duration + " min</td>";
         list += "<td> director : " + data.director + "<br> actors : " + data.main_actor + "<br> Minimum Age: " + data.min_age + "</td>";
         list += "<td> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'> Modifier Film </button>";
         list += "<button type='submit' class='btn btn-primary m-3' name='sup' onclick=delete_film("+JSON.stringify(data.id)+")>Supprimer</button></td>";
@@ -302,6 +320,10 @@
         document.getElementById("runtime").value = data.duration;
         document.getElementById("director").value = data.director;
         document.getElementById("min_age").value = data.min_age;
+
+        document.getElementById("start").value = data.start.substr(0, 10);
+        document.getElementById("end").value = data.end.substr(0, 10);
+
 
 
         var text3 = data.main_actor+ '';

@@ -68,9 +68,9 @@
     function renderFilm(data) {
         var list = "";
         list += "<tr class=\"text-center\">";
-        list += "<td>" + data.title + "</td>";
+        list += "<td>" + data.title + "<br>Start : " + data.start.substr(0, 10) + "<br>End : " + data.end.substr(0, 10) + "</td>";
         list += "<td> languages : " +data.language + "<br> subtitles : " + data.subtitles + "</td>";
-        list += "<td> duration :" + data.duration + "<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
+        list += "<td> runtime : " + data.duration + " min<br> director : " + data.director + "<br> actors : " + data.main_actor + "</td>";
         list += "</tr>";
         $("#my-list").append(list);
     }

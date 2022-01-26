@@ -46,6 +46,152 @@
     </tr>
     </tbody>
 </table>
+<div class="modal fade" id="seanceModal" tabindex="-1" role="dialog" aria-labelledby="seanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="seanceModalLabel">Modifier Seance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="screening_id"></div>
+            <div id="film_id"></div>
+            <div id="cinema_id"></div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group col-md-6">
+
+                        <label for="jour">Jour</label>
+
+                        <select name="jour" class="form-control" id="jour">
+
+                            <option value="Lundi">Lundi</option>
+
+                            <option value="Mardi">Mardi</option>
+
+                            <option value="Mercredi">Mercredi</option>
+
+                            <option value="Jeudi">Jeudi</option>
+
+                            <option value="Vendredi">Vendredi</option>
+
+                            <option value="Samedi">Samedi</option>
+
+                            <option value="Dimanche">Dimanche</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label for="heure">Heure</label>
+
+                        <select name="heure" class="form-control" id="heure">
+
+                            <option value="12h">12h</option>
+
+                            <option value="14h">14h</option>
+
+                            <option value="16h">16h</option>
+
+                            <option value="18h">18h</option>
+
+                            <option value="20h">20h</option>
+
+                            <option value="22h">22h</option>
+
+
+                        </select>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="modifierseance" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="seanceaddModal" tabindex="-1" role="dialog" aria-labelledby="seanceaddModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="seanceaddModalLabel">Modifier Seance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="film_id_2"></div>
+            <div id="cinema_id_2"></div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group col-md-6">
+
+                        <label for="jour2">Jour</label>
+
+                        <select name="jour2" class="form-control" id="jour2">
+
+                            <option value="Lundi">Lundi</option>
+
+                            <option value="Mardi">Mardi</option>
+
+                            <option value="Mercredi">Mercredi</option>
+
+                            <option value="Jeudi">Jeudi</option>
+
+                            <option value="Vendredi">Vendredi</option>
+
+                            <option value="Samedi">Samedi</option>
+
+                            <option value="Dimanche">Dimanche</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label for="heure2">Heure</label>
+
+                        <select name="heure2" class="form-control" id="heure2">
+
+                            <option value="12h">12h</option>
+
+                            <option value="14h">14h</option>
+
+                            <option value="16h">16h</option>
+
+                            <option value="18h">18h</option>
+
+                            <option value="20h">20h</option>
+
+                            <option value="22h">22h</option>
+
+
+                        </select>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="addseance" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -117,6 +263,12 @@
 
 <script>
 
+
+    $("#close").click(function (e) {
+        e.preventDefault();
+        window.location.reload();
+    });
+
     setInterval(load_cinema(), 5000);
 
     function load_cinema() {
@@ -133,37 +285,6 @@
     }
 
 
-    async function load_seances(id_cinema, id_film) {
-        const url = 'http://localhost:8080/api/screening?cinema='+id_cinema+'&film='+id_film;
-        return await fetch(url)
-            .then(resp => resp.json())
-            .then(data => { // Your code for handling the data you get from the API
-                return data.seances;
-            })
-            .catch(function (error) { // This is where you run code if the server returns any errors
-                console.log(error)
-                return null;
-            });
-    }
-
-    function renderSeances(seances){
-        var list_seance = "";
-        seances.forEach((element) => {
-            list_seance += "<td> jour : " + element.day + "<br> hour : ";
-            element.hour.forEach((hour) => {
-                list_seance += hour+" /";
-            });
-            list_seance += "</td>";
-        });
-        list_seance += "</tr>";
-        $("#list-films").append(list_seance);
-    }
-
-    $("#close").click(function (e) {
-        e.preventDefault();
-        window.location.reload();
-    });
-
     function renderCinemas(data) {
         var list = "";
         list += "<tr class='text-center'>";
@@ -179,21 +300,22 @@
 
         $.each(data.film, async function (index) {
             let list_film = "";
-            const link = "http://localhost:8080/films/id=" + data.film[index].id;
+            const link = "http://localhost:8080/films/id=" + data.film[index].id.toString();
             list_film += "<tr class='text-center'>";
             list_film += "<td><a href='" + link + "'>" + data.film[index].title + "</a></td>";
             list_film += "<td> languages : " + data.film[index].language + "<br> subtitles : " + data.film[index].subtitles + "</td>";
-            list_film += "<td> runtime :" + data.film[index].duration + "<br> director : " + data.film[index].director + "<br> actors : " + data.film[index].main_actor + "</td>";
+            list_film += "<td> runtime : " + data.film[index].duration + " min<br> director : " + data.film[index].director + "<br> actors : " + data.film[index].main_actor + "</td>";
             list_film += "<td>"
             list_film += "<table id='tab3'>"
             list_film += "<tbody id='list-seance'>"
             list_film += "<tr class='text-center'>"
             list_film += "<th scope='col'>Jour</th>"
             list_film += "<th scope='col'>Horaires</th>"
-            const url = 'http://localhost:8080/api/screening?cinema='+data.id+'&film='+data.film[index].id;
-            let response = await fetch(url);
-            let screening = await response.json();
+            const url = 'http://localhost:8080/api/screening?cinema='+data.id.toString()+'&film='+data.film[index].id.toString();
+            let screening = null;
             try {
+                let response = await fetch(url);
+                screening = await response.json();
                 screening.seances.forEach((element) => {
                     list_film += "<tr class='text-center'>";
                     list_film += "<td>" + element.day + "</td>";

@@ -109,6 +109,22 @@
 
             </div>
 
+            <div class="form-group col-md-6">
+
+              <label for="start">Start</label>
+
+              <input type="date" class="form-control" name="start" id="start">
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+              <label for="end">End</label>
+
+              <input type="date" class="form-control" name="end" id="end">
+
+            </div>
+
             <div class="form-group col-md-6" id="tblcheck">
 
               <label>Languages</label><br>
@@ -283,13 +299,18 @@
   setInterval(load_films(), 5000);
 
   $("#ajouter").click(function (e) {
-
+    if(document.getElementById("start").value === "" || document.getElementById("end").value === "" || mainactors.length<1 ){
+      alert("REMPLIR TOUS LES CHAMPS!");
+    }
+    else{
     e.preventDefault();
 
     var title = document.getElementById("title").value;
     var runtime = document.getElementById("runtime").value;
     var director = document.getElementById("director").value;
     var min_age = document.getElementById("min_age").value;
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
 
     var subtitles = new Array();
     var chks2 = tblcheck2.getElementsByTagName("INPUT");
@@ -330,8 +351,8 @@
                             mainactors
                           ,
                           "min_age": min_age,
-                          "start": "1970-01-01T00:00:02.016Z",
-                          "end": "1970-01-01T00:00:02.015Z"
+                          "start": start,
+                          "end": end
                         }
               }
       ),
@@ -348,6 +369,7 @@
 
       }
     });
+    }
   });
 
   function load_films() {
@@ -401,7 +423,7 @@
       list += "<tr class='text-center'>";
       list += "<td><a href='"+link+"'>" + data[index].title + "</a></td>";
       list += "<td> languages : " +data[index].language + "<br> subtitles : " + data[index].subtitles + "</td>";
-      list += "<td> runtime :" + data[index].duration + "<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
+      list += "<td> runtime : " + data[index].duration + " min<br> director : " + data[index].director + "<br> actors : " + data[index].main_actor + "</td>";
       list += "</tr>";
     })
     $("#my-list").append(list);
