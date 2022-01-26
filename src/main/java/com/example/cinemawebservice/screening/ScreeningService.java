@@ -30,7 +30,7 @@ public class ScreeningService {
     @GetMapping
     public Screening add_seance(String id_cinema, String id_film, List<Seance> seances){
         Integer randomNum = 1 + (int)(Math.random() * 1000000);
-        return seanceRepository.insert(new Screening(randomNum.toString(), id_cinema, id_film, seances));
+        return seanceRepository.save(new Screening(randomNum.toString(), id_cinema, id_film, seances));
     }
 
     @GetMapping

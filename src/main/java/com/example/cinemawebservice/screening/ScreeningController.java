@@ -31,17 +31,26 @@ public class ScreeningController {
     @PostMapping()
     public ResponseEntity<String> add_screening(@RequestBody @NotNull Map<String, Screening> map){
         System.out.println(map);
-        Screening screening = screeningService.add_seance(map.get("screening").getId_cinema(), map.get("screening").getId_film(), map.get("screening").getSeances());
-        return ResponseEntity.ok().body("http://localhost:8080/admin/cinemas/id="+screening.getId_cinema());
+        Screening screening = null;
+        try {
+            screening = screeningService.get_seances_with_with_cinema_and_film_id(map.get("screening").getId_cinema(), map.get("screening").getId_film());
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        if (screening != null){
+            System.out.println("okkk");
+            screeningService.delete_screening(screening.getId());
+        }
+        Screening new_screening = screeningService.add_seance(map.get("screening").getId_cinema(), map.get("screening").getId_film(), map.get("screening").getSeances());
+        return ResponseEntity.ok().body("http://localhost:8080/admin/cinemas/id="+new_screening.getId_cinema());
     }
 
     @RolesAllowed({"ADMIN"})
     @RequestMapping(path = "admin/screening/modifie")
     @PutMapping()
     public ResponseEntity<String> update_screening(@RequestBody @NotNull Map<String, Screening> map){
-        System.out.println(map);
         Screening screening = screeningService.update_seance(map.get("screening").getId(), map.get("screening").getId_cinema(), map.get("screening").getId_film(), map.get("screening").getSeances());
-        System.out.println(screening);
         return ResponseEntity.ok().body("");
     }
 
