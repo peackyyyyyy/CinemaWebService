@@ -30,7 +30,6 @@ public class ScreeningController {
     @RequestMapping(path = "admin/screening/add")
     @PostMapping()
     public ResponseEntity<String> add_screening(@RequestBody @NotNull Map<String, Screening> map){
-        System.out.println(map);
         Screening screening = null;
         try {
             screening = screeningService.get_seances_with_with_cinema_and_film_id(map.get("screening").getId_cinema(), map.get("screening").getId_film());
@@ -39,7 +38,6 @@ public class ScreeningController {
             System.out.println(e.getMessage());
         }
         if (screening != null){
-            System.out.println("okkk");
             screeningService.delete_screening(screening.getId());
         }
         Screening new_screening = screeningService.add_seance(map.get("screening").getId_cinema(), map.get("screening").getId_film(), map.get("screening").getSeances());

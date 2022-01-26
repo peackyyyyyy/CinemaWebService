@@ -66,10 +66,11 @@ public class CinemaController {
         if (errors.hasErrors()) {
             System.out.println(errors);
         }
+        Optional<Cinema> old_cinema = cinemaService.get_cinema_by_id(map.get("cinema").getId());
         Cinema cinema = null;
         System.out.println(map);
         try {
-            cinema = cinemaService.update_cinema(map.get("cinema").getId(), map.get("cinema").getName(), map.get("cinema").getAddress(), map.get("cinema").getFilm());
+            cinema = cinemaService.update_cinema(map.get("cinema").getId(), map.get("cinema").getName(), map.get("cinema").getAddress(), old_cinema.get().getFilm());
         }
         catch (Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();
