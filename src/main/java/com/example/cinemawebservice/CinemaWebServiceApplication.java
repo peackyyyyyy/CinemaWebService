@@ -36,7 +36,7 @@ public class CinemaWebServiceApplication {
         return args -> {
             Film film1 = new Film( "1", "La La Land", 128, List.of("FR, EN"), List.of("FR, EN"), "Damien Chazelle", List.of("Emma Stone", "Ryan Gosling"), "Rated G", new Date(), new Date());
             Film film2 = new Film( "2", "Baby Driver", 115, List.of("FR, EN, IT, ES"), List.of("FR, EN, IT, ES"), "Edgar Wright", List.of("Ansel Elgort"), "Rated PG-13", new Date(), new Date());
-            Film film3 = new Film( "3", "Les Gardiens de la Galaxie", 122, List.of("FR, EN"), List.of("FR, EN"), "James Gunn", List.of("James Gunn"), "Rated PG", new Date(), new Date());
+            Film film3 = new Film( "3", "Les Gardiens de la Galaxie", 122, List.of("FR, EN"), List.of("FR, EN"), "James Gunn", List.of("Chris Pratt"), "Rated PG", new Date(), new Date());
             Film film4 = new Film( "4", "Eternals", 157, List.of("FR, EN"), List.of("FR, EN"), "Chloé Zhao", List.of("Angelina Jolie", "Gemma Chan"), "Rated PG", new Date(), new Date());
             Film film5 = new Film( "5", "Dune", 125, List.of("FR"), List.of("FR"), "Denis Villeneuve", List.of("Timothée Chalamet"), "Rated PG-13", new Date(), new Date());
             Film film6 = new Film( "6", "Free Guy", 115, List.of("FR, EN, IT"), List.of("FR, EN, IT"), "Christophe Beck", List.of("Ryan Reynolds"), "Rated PG", new Date(), new Date());
@@ -152,8 +152,8 @@ public class CinemaWebServiceApplication {
                 screeningRepository.deleteAll();
                 cinemaRepository.insert(List.of(cinema1, cinema2, cinema3, cinema4, cinema5, cinema6, cinema7, cinema8, cinema9, cinema10, cinema11, cinema12, cinema13, cinema14, cinema15, cinema16, cinema17, cinema18, cinema19, cinema20));
                 filmRepository.insert(List.of(film1, film2, film3, film4, film5, film6, film7, film8, film9, film10));
-                screeningRepository.insert(List.of(screening1, screening2, screening3, screening4, screening5, screening6, screening7, screening8, screening9, screening10,
-                        screening11, screening12, screening13, screening14, screening15, screening11, screening12, screening13, screening14, screening15, screening17, screening18, screening19,
+                screeningRepository.insert(List.of(screening1, screening2, screening3, screening4, screening5, screening6, screening7, screening8, screening9,
+                        screening10, screening11, screening12, screening13, screening14, screening15, screening16, screening17, screening18, screening19,
                         screening20, screening21, screening22, screening23, screening24, screening25, screening26, screening27, screening28, screening29,
                         screening30,  screening31, screening32, screening33, screening34, screening35, screening36, screening38, screening39,
                         screening40, screening41, screening42, screening43, screening44, screening45, screening46, screening47, screening48, screening49,
