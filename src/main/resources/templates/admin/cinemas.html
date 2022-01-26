@@ -312,7 +312,7 @@
       var link="http://localhost:8080/admin/cinemas/id=" + data[index].id ;
       list += "<tr class='text-center'>";
       list += "<td><a href='"+link+"'>" + data[index].name + "</a></td>";
-      list += "<td> City : " +data[index].address.city + "<br> Adress : <a href='https://www.google.fr/maps/place/"+ data[index].address.number + "+" + data[index].address.street + "+" + data[index].address.zip + "+"  + data[index].address.city +"'>" +  data[index].address.number + data[index].address.street + "</a></td>";
+      list += "<td> City : " +data[index].address.city + "<br> Address : <a href='https://www.google.fr/maps/place/"+ data[index].address.number + "+" + data[index].address.street + "+" + data[index].address.zip + "+"  + data[index].address.city +"'>" +  data[index].address.number + data[index].address.street + "</a></td>";
       list += "</tr>";
     })
     $("#my-list").append(list);
